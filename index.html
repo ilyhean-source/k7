@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>杭州 · 每日看板</title>
+<!-- 为 Kindle 7（600x800 屏幕）一屏设计：所有内容无需滚动 -->
+<style type="text/css">
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:#ffffff;color:#000000;}
+body{
+  font-family:Georgia,"Times New Roman","Songti SC","STSong",SimSun,"Noto Serif CJK SC","Source Han Serif SC",serif;
+  font-size:15px;line-height:1.5;
+  -webkit-text-size-adjust:none;text-size-adjust:none;
+}
+.wrap{max-width:36em;margin:0 auto;padding:0 .9em .7em;}
+
+/* 报头：单行 */
+.topbar{border-top:4px solid #000;border-bottom:1px solid #000;text-align:center;
+  padding:.16em 0 .14em;font-size:1em;letter-spacing:.05em;}
+.topbar b{letter-spacing:.3em;}
+
+/* 章节标题 */
+.sec-title{margin:.2em 0 .1em;text-align:center;font-size:.74em;font-weight:bold;}
+.sec-title span{display:inline-block;border-top:1px solid #000;border-bottom:1px solid #000;
+  padding:.06em .8em;letter-spacing:.35em;text-indent:.35em;}
+
+/* 纤细分隔标签（生日区） */
+.sub-label{text-align:center;font-size:.72em;letter-spacing:.4em;text-indent:.4em;margin:.4em 0 .15em;}
+.sub-label i{display:inline-block;width:2.6em;border-top:1px solid #000;vertical-align:.32em;margin-right:.7em;}
+.sub-label i.last{margin-right:0;margin-left:.7em;}
+
+table{border-collapse:collapse;width:100%;}
+
+/* 今日天气：左侧大温度 + 右侧两行摘要 */
+.now td{vertical-align:middle;padding:0 .4em;}
+.now-temp{width:28%;text-align:center;border-right:1px solid #000;
+  font-size:2em;font-weight:bold;line-height:1.15;font-family:Georgia,"Times New Roman",serif;}
+.now-meta{font-size:.9em;line-height:1.55;}
+
+/* 近七日：紧凑表格 */
+.grid th,.grid td{border:1px solid #000;padding:.09em .3em;font-size:.8em;text-align:center;line-height:1.25;}
+.grid th{font-weight:bold;letter-spacing:.05em;}
+.week .c-date{width:4em;}
+.week .c-bar{width:30%;}
+.week tr.today-row td{font-weight:bold;}
+.tbar{display:inline-block;position:relative;width:94%;height:.5em;border:1px solid #000;vertical-align:middle;}
+.tfill{position:absolute;top:0;bottom:0;background:#000;}
+
+/* 节日倒计时：双卡片 */
+.cd-cards{overflow:hidden;margin:0 -.45em;}
+.cd-card{float:left;width:50%;padding:0 .45em;}
+.cd-card .box{border:1px solid #000;border-top:3px solid #000;text-align:center;padding:.28em .3em .32em;}
+.cd-name{font-size:.9em;font-weight:bold;letter-spacing:.4em;text-indent:.4em;}
+.cd-num{font-size:1.8em;font-weight:bold;line-height:1.15;font-family:Georgia,"Times New Roman",serif;}
+.cd-num em{font-style:normal;font-size:.55em;}
+.cd-date{font-size:.72em;letter-spacing:.05em;}
+
+/* 生日倒计时：账簿式虚线条目 */
+.brow{overflow:hidden;padding:.26em 0;border-bottom:1px dotted #000;}
+.b-nm{float:left;font-size:.9em;letter-spacing:.06em;}
+.b-nm:before{content:"";display:inline-block;width:.4em;height:.4em;background:#000;margin-right:.55em;}
+.b-nm em{font-style:normal;font-size:.78em;margin-left:.5em;}
+.b-dy{float:right;font-family:Georgia,"Times New Roman",serif;font-weight:bold;font-size:1.15em;line-height:1.1;}
+.b-dy em{font-style:normal;font-size:.6em;}
+
+/* 每日一句 */
+.fortune{border:1px solid #000;text-align:center;padding:.22em .8em .2em;}
+.fortune .saying{font-size:.98em;line-height:1.45;}
+.fortune .source{font-size:.76em;margin-top:.05em;}
+
+/* 按钮与页脚（单行） */
+.btn{display:inline-block;border:1px solid #000;background:#fff;color:#000;font-family:inherit;
+  font-size:.72em;letter-spacing:.1em;padding:.24em .85em;margin-left:.6em;cursor:pointer;}
+.btn:active{background:#000;color:#fff;}
+.foot{margin-top:.4em;border-top:1px solid #000;padding-top:.3em;text-align:center;font-size:.7em;}
+
+/* 更窄屏幕时再缩一档 */
+@media (max-width:480px){
+  body{font-size:14px;}
+  .now-temp{font-size:2em;}
+  .grid th,.grid td{font-size:.8em;padding:.1em .25em;}
+  .cd-num{font-size:1.7em;}
+  .b-dy{font-size:1.05em;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- 报头 -->
+<div class="topbar"><b>杭 州</b> · <span id="dateline">2026年10月24日 · 星期六</span> · <span id="greet">晚上好</span></div>
+
+<!-- 今日天气 -->
+<div class="sec-title"><span>今 日 天 气</span></div>
+<table class="now">
+  <tr>
+    <td class="now-temp" id="cur-temp">19°</td>
+    <td class="now-meta">
+      <div><span id="cur-desc">阴</span> · 体感 <span id="cur-feel">19°C</span> · 湿度 <span id="cur-hum">87%</span> · <span id="cur-wind">北风 3 级</span></div>
+      <div>今日 <span id="cur-range">16°C ~ 19°C</span> · 日出/日落 <span id="cur-sun">06:07 / 17:19</span></div>
+    </td>
+  </tr>
+</table>
+
+<!-- 近七日天气 -->
+<div class="sec-title"><span>近 七 日 天 气</span></div>
+<table class="grid week">
+  <thead>
+    <tr><th class="c-date">日期</th><th>星期</th><th>天气</th><th>气温</th><th class="c-bar">走势</th></tr>
+  </thead>
+  <tbody id="week-body">
+    <tr class="today-row"><td>今天</td><td>周六</td><td>小阵雨</td><td>19° / 16°</td><td><span class="tbar"><span class="tfill" style="left:32%;width:25%;"></span></span></td></tr>
+    <tr><td>10/25</td><td>周日</td><td>小雨</td><td>23° / 17°</td><td><span class="tbar"><span class="tfill" style="left:40%;width:49%;"></span></span></td></tr>
+    <tr><td>10/26</td><td>周一</td><td>晴</td><td>24° / 15°</td><td><span class="tbar"><span class="tfill" style="left:22%;width:69%;"></span></span></td></tr>
+    <tr><td>10/27</td><td>周二</td><td>阴</td><td>23° / 15°</td><td><span class="tbar"><span class="tfill" style="left:23%;width:60%;"></span></span></td></tr>
+    <tr><td>10/28</td><td>周三</td><td>阴</td><td>20° / 12°</td><td><span class="tbar"><span class="tfill" style="left:0%;width:65%;"></span></span></td></tr>
+    <tr><td>10/29</td><td>周四</td><td>小雨</td><td>22° / 14°</td><td><span class="tbar"><span class="tfill" style="left:15%;width:63%;"></span></span></td></tr>
+    <tr><td>10/30</td><td>周五</td><td>雾</td><td>25° / 14°</td><td><span class="tbar"><span class="tfill" style="left:10%;width:90%;"></span></span></td></tr>
+  </tbody>
+</table>
+
+<!-- 节日倒计时 -->
+<div class="sec-title"><span>倒 计 时</span></div>
+<div class="cd-cards" id="fest-cards">
+  <div class="cd-card">
+    <div class="box">
+      <div class="cd-name">元 旦</div>
+      <div class="cd-num">69<em> 天</em></div>
+      <div class="cd-date">2027年1月1日</div>
+    </div>
+  </div>
+  <div class="cd-card">
+    <div class="box">
+      <div class="cd-name">除 夕</div>
+      <div class="cd-num">104<em> 天</em></div>
+      <div class="cd-date">2027年2月5日</div>
+    </div>
+  </div>
+</div>
+
+<!-- 生日倒计时 -->
+<div class="sub-label"><i></i>生 日 倒 计 时<i class="last"></i></div>
+<div id="birthday-list">
+  <div class="brow"><span class="b-nm">爸爸生日 <em>11月2日</em></span><span class="b-dy">9<em> 天</em></span></div>
+  <div class="brow"><span class="b-nm">妈妈生日 <em>12月28日</em></span><span class="b-dy">65<em> 天</em></span></div>
+  <div class="brow"><span class="b-nm">爷爷生日 <em>2027年3月10日 · 农历二月初三</em></span><span class="b-dy">137<em> 天</em></span></div>
+  <div class="brow"><span class="b-nm">兜兜生日 <em>2027年8月23日</em></span><span class="b-dy">303<em> 天</em></span></div>
+  <div class="brow"><span class="b-nm">奶奶生日 <em>2027年9月1日 · 农历八月初一</em></span><span class="b-dy">312<em> 天</em></span></div>
+</div>
+
+<!-- 每日一句 -->
+<div class="sec-title"><span>每 日 一 句</span></div>
+<div class="fortune">
+  <div class="saying" id="quote-text">老骥伏枥，志在千里；烈士暮年，壮心不已。</div>
+  <div class="source" id="quote-src">—— 曹操《龟虽寿》</div>
+</div>
+
+<!-- 页脚 -->
+<div class="foot">
+  <span id="update-time">更新于 19:45 · Open-Meteo</span><button class="btn" onclick="nextQuote()">换一句</button><button class="btn" onclick="refresh()">刷新天气</button>
+</div>
+
+</div>
+
+<script type="text/javascript">
+var API = "https://api.open-meteo.com/v1/forecast?latitude=30.2741&longitude=120.1551"
+  + "&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m"
+  + "&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset"
+  + "&timezone=Asia%2FShanghai&forecast_days=7";
+
+var WMO = {0:"晴",1:"少云",2:"多云",3:"阴",45:"雾",48:"雾凇",51:"小雨",53:"小雨",55:"毛毛雨",
+  56:"冻雨",57:"冻雨",61:"小雨",63:"中雨",65:"大雨",66:"冻雨",67:"冻雨",
+  71:"小雪",73:"中雪",75:"大雪",77:"雪粒",80:"阵雨",81:"小阵雨",82:"强阵雨",
+  85:"阵雪",86:"阵雪",95:"雷阵雨",96:"雷雨冰雹",99:"雷雨冰雹"};
+var DIRS = ["北","东北","东","东南","南","西南","西","西北"];
+
+/* 除夕公历日期表（2026-2036） */
+var CHUXI = ["2026-02-16","2027-02-05","2028-01-25","2029-02-12","2030-02-02","2031-01-22","2032-02-10",
+  "2033-01-30","2034-02-18","2035-02-07","2036-01-27"];
+/* 农历生日换算表（2026-2036，lunardate 库生成） */
+var LUNAR = [
+  {name:"爷爷生日", note:"农历二月初三", dates:["2026-03-21","2027-03-10","2028-02-27","2029-03-17","2030-03-06","2031-02-23","2032-03-14","2033-03-03","2034-03-22","2035-03-12","2036-02-29"]},
+  {name:"奶奶生日", note:"农历八月初一", dates:["2026-09-11","2027-09-01","2028-09-19","2029-09-08","2030-08-29","2031-09-17","2032-09-05","2033-08-25","2034-09-13","2035-09-02","2036-09-20"]}
+];
+/* 公历生日 */
+var SOLAR_BIRTHDAYS = [
+  {name:"爸爸生日", m:11, d:2},
+  {name:"妈妈生日", m:12, d:28},
+  {name:"兜兜生日", m:8, d:23}
+];
+
+var QUOTES = [
+  {t:"千里之行，始于足下。", s:"—— 《老子》"},
+  {t:"不积跬步，无以至千里；不积小流，无以成江海。", s:"—— 《荀子 · 劝学》"},
+  {t:"少壮不努力，老大徒伤悲。", s:"—— 《长歌行》"},
+  {t:"海阔凭鱼跃，天高任鸟飞。", s:"—— 古谚"},
+  {t:"长风破浪会有时，直挂云帆济沧海。", s:"—— 李白《行路难》"},
+  {t:"会当凌绝顶，一览众山小。", s:"—— 杜甫《望岳》"},
+  {t:"宝剑锋从磨砺出，梅花香自苦寒来。", s:"—— 《警世贤文》"},
+  {t:"为之，则难者亦易矣；不为，则易者亦难矣。", s:"—— 彭端淑《为学》"},
+  {t:"莫愁前路无知己，天下谁人不识君。", s:"—— 高适《别董大》"},
+  {t:"天生我材必有用，千金散尽还复来。", s:"—— 李白《将进酒》"},
+  {t:"山重水复疑无路，柳暗花明又一村。", s:"—— 陆游《游山西村》"},
+  {t:"欲穷千里目，更上一层楼。", s:"—— 王之涣《登鹳雀楼》"},
+  {t:"不畏浮云遮望眼，自缘身在最高层。", s:"—— 王安石《登飞来峰》"},
+  {t:"沉舟侧畔千帆过，病树前头万木春。", s:"—— 刘禹锡《酬乐天扬州初逢席上见赠》"},
+  {t:"落红不是无情物，化作春泥更护花。", s:"—— 龚自珍《己亥杂诗》"},
+  {t:"千磨万击还坚劲，任尔东西南北风。", s:"—— 郑燮《竹石》"},
+  {t:"路漫漫其修远兮，吾将上下而求索。", s:"—— 屈原《离骚》"},
+  {t:"老骥伏枥，志在千里；烈士暮年，壮心不已。", s:"—— 曹操《龟虽寿》"},
+  {t:"博观而约取，厚积而薄发。", s:"—— 苏轼《杂说》"},
+  {t:"旧书不厌百回读，熟读深思子自知。", s:"—— 苏轼《送安惇秀才失解西归》"},
+  {t:"问渠那得清如许？为有源头活水来。", s:"—— 朱熹《观书有感》"},
+  {t:"纸上得来终觉浅，绝知此事要躬行。", s:"—— 陆游《冬夜读书示子聿》"},
+  {t:"采得百花成蜜后，为谁辛苦为谁甜。", s:"—— 罗隐《蜂》"},
+  {t:"春蚕到死丝方尽，蜡炬成灰泪始干。", s:"—— 李商隐《无题》"},
+  {t:"一日之计在于晨，一年之计在于春。", s:"—— 古谚"},
+  {t:"读书不觉已春深，一寸光阴一寸金。", s:"—— 王贞白《白鹿洞》"},
+  {t:"黑发不知勤学早，白首方悔读书迟。", s:"—— 颜真卿《劝学》"},
+  {t:"及时当勉励，岁月不待人。", s:"—— 陶渊明《杂诗》"},
+  {t:"盛年不重来，一日难再晨。", s:"—— 陶渊明《杂诗》"},
+  {t:"有志者，事竟成。", s:"—— 《后汉书 · 耿弇传》"},
+  {t:"青春须早为，岂能长少年。", s:"—— 孟郊《劝学》"}
+];
+
+var qIndex = 0;
+
+function $(id){ return document.getElementById(id); }
+function wmo(c){ return WMO[c] || "多云"; }
+function windDir(d){ return DIRS[Math.round(d / 45) % 8]; }
+function windLevel(kmh){
+  var ms = kmh / 3.6;
+  var levels = [0.3,1.6,3.4,5.5,8.0,10.8,13.9,17.2,20.8,24.5,28.5,32.7];
+  for (var i = 0; i < levels.length; i++){ if (ms < levels[i]) return i; }
+  return 12;
+}
+function fmtDate(iso){ var p = iso.split("-"); return parseInt(p[1],10) + "/" + parseInt(p[2],10); }
+function weekdayCN(iso){ var p = iso.split("-"); var d = new Date(+p[0], +p[1] - 1, +p[2]); return "周" + "日一二三四五六".charAt(d.getDay()); }
+function hhmm(iso){ return iso.slice(11, 16); }
+function r0(n){ return Math.round(n); }
+
+function render(data){
+  var c = data.current, d = data.daily;
+  $("cur-temp").innerHTML = r0(c.temperature_2m) + "°";
+  $("cur-range").innerHTML = r0(d.temperature_2m_min[0]) + "°C ~ " + r0(d.temperature_2m_max[0]) + "°C";
+  $("cur-desc").innerHTML = wmo(c.weather_code);
+  $("cur-feel").innerHTML = r0(c.apparent_temperature) + "°C";
+  $("cur-hum").innerHTML = r0(c.relative_humidity_2m) + "%";
+  $("cur-wind").innerHTML = windDir(c.wind_direction_10m) + "风 " + windLevel(c.wind_speed_10m) + " 级";
+  $("cur-sun").innerHTML = hhmm(d.sunrise[0]) + " / " + hhmm(d.sunset[0]);
+  $("update-time").innerHTML = "更新于 " + hhmm(c.time) + " · Open-Meteo";
+
+  var gmin = Math.min.apply(null, d.temperature_2m_min);
+  var gmax = Math.max.apply(null, d.temperature_2m_max);
+  var span = (gmax - gmin) || 1;
+  var html = "";
+  for (var i = 0; i < d.time.length; i++){
+    var iso = d.time[i];
+    var tmin = d.temperature_2m_min[i], tmax = d.temperature_2m_max[i];
+    var left = Math.round((tmin - gmin) / span * 100);
+    var width = Math.max(8, Math.round((tmax - tmin) / span * 100));
+    html += "<tr" + (i === 0 ? " class=\"today-row\"" : "") + ">"
+      + "<td>" + (i === 0 ? "今天" : fmtDate(iso)) + "</td>"
+      + "<td>" + weekdayCN(iso) + "</td>"
+      + "<td>" + wmo(d.weather_code[i]) + "</td>"
+      + "<td>" + r0(tmax) + "° / " + r0(tmin) + "°</td>"
+      + "<td><span class=\"tbar\"><span class=\"tfill\" style=\"left:" + left + "%;width:" + width + "%;\"></span></span></td>"
+      + "</tr>";
+  }
+  $("week-body").innerHTML = html;
+}
+
+function refresh(){
+  try{
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", API, true);
+    xhr.onreadystatechange = function(){
+      if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)){
+        try { render(JSON.parse(xhr.responseText)); } catch(e){}
+      }
+    };
+    xhr.send();
+  }catch(e){}
+}
+
+/* ---- 倒计时 ---- */
+function daysTo(y, m, d){
+  var now = new Date();
+  var t0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  var t1 = new Date(y, m - 1, d);
+  return Math.round((t1 - t0) / 86400000);
+}
+function parseISO(s){ var p = s.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+function mdLabel(t1, nowY){
+  var y = t1.getFullYear();
+  return (y !== nowY ? y + "年" : "") + (t1.getMonth() + 1) + "月" + t1.getDate() + "日";
+}
+function solarNext(m, d){
+  var now = new Date(), nowY = now.getFullYear();
+  var y = nowY, days = daysTo(nowY, m, d);
+  if (days < 0){ y++; days = daysTo(y, m, d); }
+  return {days: days, label: mdLabel(new Date(y, m - 1, d), nowY)};
+}
+function listNext(arr){
+  var now = new Date(), nowY = now.getFullYear();
+  var t0 = new Date(nowY, now.getMonth(), now.getDate());
+  for (var i = 0; i < arr.length; i++){
+    var t1 = parseISO(arr[i]);
+    var days = Math.round((t1 - t0) / 86400000);
+    if (days >= 0) return {days: days, label: mdLabel(t1, nowY)};
+  }
+  return null;
+}
+
+/* 节日倒计时：双卡片 */
+function renderFestivals(){
+  var ny = solarNext(1, 1);
+  var cx = listNext(CHUXI);
+  var html = "";
+  html += '<div class="cd-card"><div class="box">'
+    + '<div class="cd-name">元 旦</div>'
+    + '<div class="cd-num">' + ny.days + '<em> 天</em></div>'
+    + '<div class="cd-date">' + ny.label + '</div></div></div>';
+  if (cx){
+    html += '<div class="cd-card"><div class="box">'
+      + '<div class="cd-name">除 夕</div>'
+      + '<div class="cd-num">' + cx.days + '<em> 天</em></div>'
+      + '<div class="cd-date">' + cx.label + '</div></div></div>';
+  }
+  $("fest-cards").innerHTML = html;
+}
+
+/* 生日倒计时：点线条目，按剩余天数升序 */
+function renderBirthdays(){
+  var list = [];
+  for (var i = 0; i < SOLAR_BIRTHDAYS.length; i++){
+    var r = solarNext(SOLAR_BIRTHDAYS[i].m, SOLAR_BIRTHDAYS[i].d);
+    list.push({name: SOLAR_BIRTHDAYS[i].name, label: r.label, days: r.days});
+  }
+  for (var j = 0; j < LUNAR.length; j++){
+    var lr = listNext(LUNAR[j].dates);
+    if (lr) list.push({name: LUNAR[j].name, label: lr.label + " · " + LUNAR[j].note, days: lr.days});
+  }
+  list.sort(function(a, b){ return a.days - b.days; });
+  var html = "";
+  for (var k = 0; k < list.length; k++){
+    html += '<div class="brow">'
+      + '<span class="b-nm">' + list[k].name + ' <em>' + list[k].label + '</em></span>'
+      + '<span class="b-dy">' + list[k].days + '<em> 天</em></span></div>';
+  }
+  $("birthday-list").innerHTML = html;
+}
+
+function renderDate(){
+  var now = new Date();
+  $("dateline").innerHTML = now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate()
+    + "日 · 星期" + "日一二三四五六".charAt(now.getDay());
+  var h = now.getHours(), g = "晚上好";
+  if (h < 5) g = "夜深了";
+  else if (h < 9) g = "早上好";
+  else if (h < 12) g = "上午好";
+  else if (h < 14) g = "中午好";
+  else if (h < 18) g = "下午好";
+  $("greet").innerHTML = g;
+}
+
+function dayIndex(){
+  var now = new Date();
+  var t0 = new Date(now.getFullYear(), 0, 1);
+  return Math.floor((now - t0) / 86400000);
+}
+function renderQuote(){
+  var q = QUOTES[qIndex];
+  $("quote-text").innerHTML = q.t;
+  $("quote-src").innerHTML = q.s;
+}
+function nextQuote(){
+  qIndex = (qIndex + 1) % QUOTES.length;
+  renderQuote();
+}
+
+qIndex = dayIndex() % QUOTES.length;
+renderDate();
+renderFestivals();
+renderBirthdays();
+renderQuote();
+refresh();
+</script>
+</body>
+</html>
