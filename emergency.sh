@@ -50,12 +50,12 @@ fi
 log "verify: logThis=$( [ -f /usr/bin/logThis.sh ] && echo ok || echo MISSING ) hook=$( grep -q logThis /usr/share/webkit-1.0/pillow/debug_cmds.json 2>/dev/null && echo ok || echo MISSING ) flag=$( [ -f /var/local/mesquite/browser/debug ] && echo ok || echo MISSING )"
 log "=== emergency repair done ==="
 
-# ------------------------------------------------- run the k7fix diagnostic
-if [ -f /mnt/us/k7fix.sh ]; then
+# ------------------------------------------------- run the k7fix2 diagnostic
+if [ -f /mnt/us/k7fix2.sh ]; then
     if command -v setsid >/dev/null 2>&1; then
-        setsid /bin/sh -c 'sleep 5; exec /bin/sh /mnt/us/k7fix.sh' >> "$LOG" 2>&1 &
+        setsid /bin/sh -c 'sleep 5; exec /bin/sh /mnt/us/k7fix2.sh' >> "$LOG" 2>&1 &
     else
-        ( sleep 5; /bin/sh /mnt/us/k7fix.sh ) >> "$LOG" 2>&1 &
+        ( sleep 5; /bin/sh /mnt/us/k7fix2.sh ) >> "$LOG" 2>&1 &
     fi
 fi
 
