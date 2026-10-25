@@ -1,65 +1,83 @@
 #!/bin/sh
 # emergency.sh - boot-time repair hook (runs as root before everything else)
 #
-# This file is executed by the jailbreak's bridge.conf upstart job on every
-# boot. It repairs the ;log command channel if it broke, then hands over to
-# the k7fix diagnostic run. One-shot: deletes itself when done.
+# Executed by the jailbreak's bridge.conf upstart job on every boot.
+# Repairs the privilege-escalation chain and the ;log registration,
+# then hands over to k7final.sh (board launch + snapshot + power exit).
+# NOT one-shot: stays in place so every boot gets a working hook.
 
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
 LOG=/mnt/us/k7.log
 log() { echo "$(date '+%m-%d %H:%M:%S') [emergency] $*" >> "$LOG"; }
 
-# ---------------------------------------------------------- repair the hook
 log "=== emergency repair start ==="
 
-G=/usr/bin/gandalf
-if [ -x "$G" ]; then
-    log "gandalf ok (setuid root)"
+mount -o rw,remount / 2>/dev/null
+
+# ---- gandalf (setuid helper used by dispatch.sh ;log runme) ----
+if [ -x /var/local/mkk/gandalf ]; then
+    log "gandalf: ok"
 else
-    log "gandalf missing"
-fi
-
-# logThis.sh - the ;log command processor
-if [ -f /usr/bin/logThis.sh ]; then
-    log "logThis.sh already in place"
-else
-    cp /mnt/us/extensions/MRInstaller/bin/logThis.sh /usr/bin/logThis.sh 2>>"$LOG" \
-        && log "logThis.sh restored from USB backup" \
-        || log "logThis.sh restore failed"
-fi
-
-# debug_cmds.json - the ; command registry
-if grep -q 'logThis' /usr/share/webkit-1.0/pillow/debug_cmds.json 2>/dev/null; then
-    log "debug_cmds.json already hooked"
-else
-    cp /mnt/us/extensions/MRInstaller/debug_cmds.json /usr/share/webkit-1.0/pillow/debug_cmds.json 2>>"$LOG" \
-        && log "debug_cmds.json restored from USB backup" \
-        || log "debug_cmds.json restore failed"
-fi
-
-# debugging flag file required by 5.12 firmware
-if [ -f /var/local/mesquite/browser/debug ]; then
-    log "debugging flag already present"
-else
-    touch /var/local/mesquite/browser/debug 2>>"$LOG" \
-        && log "debugging flag restored" \
-        || log "debugging flag restore failed"
-fi
-
-log "verify: logThis=$( [ -f /usr/bin/logThis.sh ] && echo ok || echo MISSING ) hook=$( grep -q logThis /usr/share/webkit-1.0/pillow/debug_cmds.json 2>/dev/null && echo ok || echo MISSING ) flag=$( [ -f /var/local/mesquite/browser/debug ] && echo ok || echo MISSING )"
-log "=== emergency repair done ==="
-
-# ------------------------------------------------- run the k7fix2 diagnostic
-if [ -f /mnt/us/k7fix2.sh ]; then
-    if command -v setsid >/dev/null 2>&1; then
-        setsid /bin/sh -c 'sleep 5; exec /bin/sh /mnt/us/k7fix2.sh' >> "$LOG" 2>&1 &
+    mkdir -p /var/local/mkk
+    if cp /mnt/us/mkk/gandalf /var/local/mkk/gandalf 2>>"$LOG"; then
+        chown root:root /var/local/mkk/gandalf 2>/dev/null
+        chmod 0755 /var/local/mkk/gandalf
+        log "gandalf: restored from USB backup"
     else
-        ( sleep 5; /bin/sh /mnt/us/k7fix2.sh ) >> "$LOG" 2>&1 &
+        log "gandalf: restore FAILED"
     fi
 fi
 
-# one-shot: remove ourselves so normal boots stay clean
-rm -f /mnt/us/emergency.sh
-log "emergency.sh removed (one-shot)"
+# ---- dispatch.sh (the ;log runme command router) ----
+if [ -f /var/local/mkk/dispatch.sh ]; then
+    log "dispatch: present"
+else
+    if cp /mnt/us/mkk/dispatch.sh /var/local/mkk/dispatch.sh 2>>"$LOG"; then
+        chmod 0755 /var/local/mkk/dispatch.sh
+        log "dispatch: restored"
+    else
+        log "dispatch: restore FAILED"
+    fi
+fi
+
+# ---- debug_cmds.json (the ; command registry, idempotent inject) ----
+DC=/usr/share/webkit-1.0/pillow/debug_cmds.json
+if [ -f "$DC" ]; then
+    if grep -q 'logThis' "$DC" 2>/dev/null; then
+        log "debug hook: present"
+    else
+        if sed -e '/^{/a\' -e '    ";log" : "/usr/bin/logThis.sh",' -i "$DC" 2>>"$LOG"; then
+            log "debug hook: re-injected"
+        else
+            log "debug hook: inject FAILED"
+        fi
+    fi
+else
+    log "debug_cmds.json: MISSING"
+fi
+
+# ---- logThis.sh (the ;log processor) ----
+if [ -f /usr/bin/logThis.sh ]; then
+    log "logThis: ok"
+else
+    log "logThis: MISSING (cannot restore, no backup on USB)"
+fi
+
+# ---- debug flag required by 5.12 firmware ----
+if [ -f /var/local/mesquite/browser/debug ]; then
+    log "debug flag: present"
+else
+    touch /var/local/mesquite/browser/debug 2>/dev/null && log "debug flag: created" || log "debug flag: FAILED"
+fi
+
+log "=== repair done, handing to k7final ==="
+
+# run the final script in the background; framework needs time to settle
+if command -v setsid >/dev/null 2>&1; then
+    setsid /bin/sh -c 'sleep 12; exec /bin/sh /mnt/us/k7final.sh' >> "$LOG" 2>&1 &
+else
+    ( sleep 12; /bin/sh /mnt/us/k7final.sh ) >> "$LOG" 2>&1 &
+fi
+
 exit 0
