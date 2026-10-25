@@ -98,11 +98,11 @@ say "=== emergency repair done ==="
 
 /usr/bin/eips 1 0 "K7 REPAIR OK" >/dev/null 2>&1
 
-# ---- launch the board in the background (no typing needed)
+# ---- launch diag (this boot) or the board, in the background
 if command -v setsid >/dev/null 2>&1; then
-    setsid /bin/sh -c 'sleep 8; exec /bin/sh /mnt/us/RUNME.sh' >> "$LOG" 2>&1 &
+    setsid /bin/sh -c 'sleep 8; if [ -f /mnt/us/k7diag.sh ]; then exec /bin/sh /mnt/us/k7diag.sh; else exec /bin/sh /mnt/us/RUNME.sh; fi' >> "$LOG" 2>&1 &
 else
-    ( sleep 8; /bin/sh /mnt/us/RUNME.sh ) >> "$LOG" 2>&1 &
+    ( sleep 8; if [ -f /mnt/us/k7diag.sh ]; then /bin/sh /mnt/us/k7diag.sh; else /bin/sh /mnt/us/RUNME.sh; fi ) >> "$LOG" 2>&1 &
 fi
 
 # ---- one-shot: get out of the way so future boots run the normal bridge
