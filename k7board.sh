@@ -87,6 +87,8 @@ if grep -q 'pinchzoom" value="yes"' "$CFG" 2>/dev/null; then
 fi
 log "viewmode now: $(grep -o 'viewmodes="[^"]*"' "$CFG" 2>/dev/null)"
 log "pinchzoom now: $(grep -o 'pinchzoom" value="[^"]*"' "$CFG" 2>/dev/null)"
+mntroot ro >> "$LOG" 2>&1
+log "mntroot ro exit=$?"
 scr "K7 2/6 patched"
 
 # ------------------------------------------------------------------ helpers
