@@ -3,24 +3,27 @@
 # Author: WorkBuddy
 # Description: Fullscreen kiosk launcher for the Hangzhou daily board
 #              (Kindle 7 / KT2, firmware 5.12.2.2)
-# Version: 1.4
+# Version: 1.5
 #
-# Usage: type ";log runme" in the Kindle search box and press enter.
-#        Press the power button to exit back to the library.
+# Usage: runs automatically at boot via /mnt/us/emergency.sh, or type
+#        ";log runme" in the Kindle search box. Press the power button to exit.
 #
-# Diagnostics: every run appends a full report to /mnt/us/k7.log
-# (connect the Kindle over USB, open k7.log at the drive root).
-# This version prints each step on screen with eips and tries several
-# different ways to open the dashboard, logging the result of each.
+# v5 changes:
+#  - config.xml is patched IN PLACE (same inode) so the browser keeps seeing
+#    its own owner/permissions (framewor:javauser 0775). The previous mv-based
+#    patch turned the file root:root 0644, which likely makes the stock
+#    browser discard the patch and rewrite factory defaults.
+#  - full config.xml dump + /etc/upstart job list + browser.js listing in log
+#  - post-launch re-check of viewmodes (did the browser reset it on start?)
+#  - powerd event sniffer logs every powerd event with timestamps, so a
+#    power button press is recorded even if no exit is triggered
 
-# --- environment: the ;log bridge runs this script through su, whose
-# --- PATH may be minimal, so set our own and use absolute paths.
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
 LOG=/mnt/us/k7.log
 LIPC=/usr/bin/lipc-set-prop
 LIPCG=/usr/bin/lipc-get-prop
-EIPS=/usr/bin/eips
+EIPS=/usr/sbin/eips
 CFG=/var/local/mesquite/browser/config.xml
 
 SITE_LOCAL="file:///mnt/us/documents/HZBoard.html"
@@ -34,19 +37,22 @@ scr() { "$EIPS" 0 0 "$*" >/dev/null 2>&1; log "screen: $*"; }
 # ------------------------------------------------------------------ report
 {
     echo ""
-    echo "===== k7board v4 $(date) ====="
+    echo "===== k7board v5 $(date) ====="
     echo "PATH=$PATH"
     echo "id=$(id 2>&1)"
     echo "-- binaries --"
     for b in lipc-set-prop lipc-get-prop lipc-wait-event eips mntroot \
-             killall pkill sed grep head busybox nc curl wget; do
+             killall pkill sed grep head busybox nc curl wget stop start; do
         echo "$b -> $(command -v "$b" 2>/dev/null || echo MISSING)"
     done
+    echo "-- upstart jobs --"
+    ls /etc/upstart/ 2>&1 | head -40
     echo "-- browser files --"
     ls -la /var/local/mesquite/browser/ 2>&1 | head -25
-    echo "-- config keys --"
-    grep -o 'viewmodes="[^"]*"' "$CFG" 2>&1
-    grep -o 'pinchzoom" value="[^"]*"' "$CFG" 2>&1
+    echo "-- browser javascripts --"
+    ls -la /var/local/mesquite/browser/javascripts/ 2>&1 | head -15
+    echo "-- FULL config.xml --"
+    cat "$CFG" 2>&1
     echo "-- rootfs write test --"
     if touch "$CFG.wtest" 2>/dev/null; then
         echo "WRITABLE"
@@ -57,6 +63,10 @@ scr() { "$EIPS" 0 0 "$*" >/dev/null 2>&1; log "screen: $*"; }
     echo "-- foreground app before --"
     "$LIPCG" com.lab126.appmgrd activeApp 2>&1
 } >> "$LOG" 2>&1
+
+# powerd event sniffer: log every powerd event with timestamps for the
+# whole session, so we can see exactly what a power button press emits.
+( /usr/bin/lipc-wait-event -mt com.lab126.powerd '*' >> "$LOG" 2>&1 ) &
 
 scr "K7 1/6 start"
 
@@ -69,24 +79,38 @@ log "preventScreenSaver exit=$?"
 # ------------------------------------------------------- fullscreen patch
 mntroot rw >> "$LOG" 2>&1
 log "mntroot exit=$?"
-if grep -q 'viewmodes="application"' "$CFG" 2>/dev/null; then
-    sed 's/viewmodes="application"/viewmodes="fullscreen"/g' "$CFG" > "$CFG.new" 2>>"$LOG"
-    if [ -s "$CFG.new" ]; then
-        mv "$CFG.new" "$CFG" 2>>"$LOG"
-    else
+
+# Patch by rewriting the file in place: keeps inode, owner and permissions,
+# so the browser still sees its own framewor:javauser 0775 config file.
+patch_cfg() {
+    _pat="$1"
+    _rep="$2"
+    grep -q "$_pat" "$CFG" 2>/dev/null || return 1
+    sed "s/$_pat/$_rep/g" "$CFG" > "$CFG.new" 2>>"$LOG"
+    if [ ! -s "$CFG.new" ]; then
         rm -f "$CFG.new" 2>/dev/null
+        return 1
     fi
-fi
-if grep -q 'pinchzoom" value="yes"' "$CFG" 2>/dev/null; then
-    sed 's/pinchzoom" value="yes"/pinchzoom" value="no"/g' "$CFG" > "$CFG.new" 2>>"$LOG"
-    if [ -s "$CFG.new" ]; then
-        mv "$CFG.new" "$CFG" 2>>"$LOG"
-    else
-        rm -f "$CFG.new" 2>/dev/null
+    chattr -i "$CFG" 2>/dev/null
+    if cat "$CFG.new" > "$CFG" 2>>"$LOG"; then
+        rm -f "$CFG.new"
+        log "patched in place (inode/owner/perms kept): $_pat -> $_rep"
+        return 0
     fi
-fi
+    # Fallback: replace the file, then restore the original metadata by hand.
+    mv "$CFG.new" "$CFG" 2>>"$LOG"
+    chmod 0775 "$CFG" 2>>"$LOG"
+    chown framewor:javauser "$CFG" 2>>"$LOG"
+    log "patched via replace (metadata restored): $_pat -> $_rep"
+    return 0
+}
+
+patch_cfg 'viewmodes="application"' 'viewmodes="fullscreen"'
+patch_cfg 'pinchzoom" value="yes"' 'pinchzoom" value="no"'
+
 log "viewmode now: $(grep -o 'viewmodes="[^"]*"' "$CFG" 2>/dev/null)"
 log "pinchzoom now: $(grep -o 'pinchzoom" value="[^"]*"' "$CFG" 2>/dev/null)"
+log "config stat now: $(ls -la "$CFG" 2>/dev/null)"
 mntroot ro >> "$LOG" 2>&1
 log "mntroot ro exit=$?"
 scr "K7 2/6 patched"
@@ -115,7 +139,7 @@ try_url() {
     scr "K7 opening $_label"
     launch "$_url"
     _w=0
-    while [ $_w -lt 8 ]; do
+    while [ $_w -lt 10 ]; do
         sleep 1
         browser_alive && break
         _w=$((_w + 1))
@@ -150,7 +174,6 @@ if [ -z "$ok" ]; then
     try_url "test page" "$SITE_TEST" && ok=1
 fi
 
-# last resort: run the browser binary directly, without appmgrd
 if [ -z "$ok" ]; then
     scr "K7 direct launch"
     /usr/bin/mesquite -l com.lab126.browser -c /var/local/mesquite/browser/ >> "$LOG" 2>&1 &
@@ -165,20 +188,27 @@ fi
 
 scr "K7 6/6 ready"
 
+# ------------------------------------------- post-launch config verification
+# Decisive check: if viewmodes flipped back to "application" here, the stock
+# browser reset the config when it started (regardless of our patch method).
+sleep 5
+log "POST-LAUNCH viewmodes: $(grep -o 'viewmodes="[^"]*"' "$CFG" 2>/dev/null)"
+log "POST-LAUNCH pinchzoom: $(grep -o 'pinchzoom" value="[^"]*"' "$CFG" 2>/dev/null)"
+log "POST-LAUNCH config stat: $(ls -la "$CFG" 2>/dev/null)"
+
 if [ -z "$ok" ]; then
     "$EIPS" -c >/dev/null 2>&1
     "$EIPS" 10 180 "K7 BOARD FAILED" >/dev/null 2>&1
     "$EIPS" 10 220 "all launch methods failed" >/dev/null 2>&1
     "$EIPS" 10 260 "connect USB, open k7.log" >/dev/null 2>&1
     log "=== ALL LAUNCH METHODS FAILED ==="
+    pkill -f 'lipc-wait-event -mt' 2>/dev/null
     exit 1
 fi
 
 log "=== dashboard up, waiting for exit ==="
 
 # -------------------------------------------------------------- exit logic
-# The power button event name differs between firmwares; wait for either.
-# Also give up if the browser disappears on its own (user exited it).
 rm -f /mnt/us/k7exit
 ( /usr/bin/lipc-wait-event com.lab126.powerd goingToScreenSaver >> "$LOG" 2>&1; echo ss > /mnt/us/k7exit ) &
 ( /usr/bin/lipc-wait-event com.lab126.powerd PowerButtonQuickPress >> "$LOG" 2>&1; echo pb > /mnt/us/k7exit ) &
@@ -203,6 +233,7 @@ rm -f /mnt/us/k7exit
 "$LIPC" com.lab126.powerd preventScreenSaver 0 >> "$LOG" 2>&1
 killall mesquite >> "$LOG" 2>&1
 pkill mesquite >> "$LOG" 2>&1
+pkill -f 'lipc-wait-event -mt' 2>/dev/null
 for c in /proc/[0-9]*/comm; do
     [ -r "$c" ] || continue
     grep -q httpd "$c" 2>/dev/null && kill "${c#/proc/}" 2>/dev/null
