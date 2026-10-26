@@ -3,8 +3,8 @@
 #
 # Executed by the jailbreak's bridge.conf upstart job on every boot.
 # Repairs the privilege-escalation chain and the ;log registration,
-# then hands over to k7final.sh (board launch + snapshot + power exit).
-# NOT one-shot: stays in place so every boot gets a working hook.
+# then hands over to k7kiosk.sh (permanent fullscreen board).
+# NOT one-shot: stays in place so every boot gets the board automatically.
 
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
@@ -61,7 +61,7 @@ fi
 if [ -f /usr/bin/logThis.sh ]; then
     log "logThis: ok"
 else
-    log "logThis: MISSING (cannot restore, no backup on USB)"
+    log "logThis: MISSING (no backup on USB)"
 fi
 
 # ---- debug flag required by 5.12 firmware ----
@@ -71,13 +71,13 @@ else
     touch /var/local/mesquite/browser/debug 2>/dev/null && log "debug flag: created" || log "debug flag: FAILED"
 fi
 
-log "=== repair done, handing to k7final ==="
+log "=== repair done, handing to k7kiosk ==="
 
-# run the final script in the background; framework needs time to settle
+# run the kiosk in the background; framework needs time to settle
 if command -v setsid >/dev/null 2>&1; then
-    setsid /bin/sh -c 'sleep 12; exec /bin/sh /mnt/us/k7final.sh' >> "$LOG" 2>&1 &
+    setsid /bin/sh -c 'sleep 12; exec /bin/sh /mnt/us/k7kiosk.sh' >> "$LOG" 2>&1 &
 else
-    ( sleep 12; /bin/sh /mnt/us/k7final.sh ) >> "$LOG" 2>&1 &
+    ( sleep 12; /bin/sh /mnt/us/k7kiosk.sh ) >> "$LOG" 2>&1 &
 fi
 
 exit 0

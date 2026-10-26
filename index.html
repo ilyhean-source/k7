@@ -3,85 +3,87 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HZ Board · 杭州看板</title>
-<!-- 为 Kindle 7（600x800 屏幕）一屏设计：所有内容无需滚动 -->
+<title>我们的家 · 杭州看板</title>
+<!-- 为 Kindle 7（600x800 屏幕）一屏设计：家庭温馨风格，黑白灰 -->
 <style type="text/css">
 *{margin:0;padding:0;box-sizing:border-box;}
-html,body{background:#ffffff;color:#000000;}
+html,body{background:#ffffff;color:#1a1a1a;}
 body{
   font-family:Georgia,"Times New Roman","Songti SC","STSong",SimSun,"Noto Serif CJK SC","Source Han Serif SC",serif;
   font-size:15px;line-height:1.5;
   -webkit-text-size-adjust:none;text-size-adjust:none;
 }
-.wrap{max-width:36em;margin:0 auto;padding:0 .9em .7em;}
+.wrap{max-width:36em;margin:0 auto;padding:.42em .95em .4em;}
 
-/* 报头：单行 */
-.topbar{border-top:4px solid #000;border-bottom:1px solid #000;text-align:center;
-  padding:.16em 0 .14em;font-size:1em;letter-spacing:.05em;}
-.topbar b{letter-spacing:.3em;}
+/* ============ 报头：信笺式 ============ */
+.head{text-align:center;padding-bottom:.32em;border-bottom:3px double #1a1a1a;}
+.head .date{font-size:.95em;letter-spacing:.12em;color:#1a1a1a;}
+.head .greet{font-size:1.2em;font-weight:bold;letter-spacing:.22em;text-indent:.22em;margin-top:.12em;}
+.head .greet small{font-size:.52em;font-weight:normal;letter-spacing:.18em;color:#666;margin-left:.9em;}
 
-/* 章节标题 */
-.sec-title{margin:.2em 0 .1em;text-align:center;font-size:.74em;font-weight:bold;}
-.sec-title span{display:inline-block;border-top:1px solid #000;border-bottom:1px solid #000;
-  padding:.06em .8em;letter-spacing:.35em;text-indent:.35em;}
+/* ============ 章节头：细线 + 小字 ============ */
+.sec{margin:.4em 0 .24em;text-align:center;position:relative;}
+.sec span{display:inline-block;font-size:.76em;font-weight:bold;letter-spacing:.42em;text-indent:.42em;color:#1a1a1a;
+  background:#fff;padding:0 .9em;position:relative;z-index:1;}
+.sec:before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px solid #1a1a1a;z-index:0;}
+.sec .heart{color:#1a1a1a;}
 
-/* 纤细分隔标签（生日区） */
-.sub-label{text-align:center;font-size:.72em;letter-spacing:.4em;text-indent:.4em;margin:.4em 0 .15em;}
-.sub-label i{display:inline-block;width:2.6em;border-top:1px solid #000;vertical-align:.32em;margin-right:.7em;}
-.sub-label i.last{margin-right:0;margin-left:.7em;}
-
+/* ============ 天气 ============ */
 table{border-collapse:collapse;width:100%;}
+.now td{vertical-align:middle;padding:0 .55em;}
+.now-temp{width:31%;text-align:center;border-right:1px solid #bbb;
+  font-size:2.3em;font-weight:normal;line-height:1.05;font-family:Georgia,"Times New Roman",serif;color:#1a1a1a;}
+.now-temp em{display:block;font-style:normal;font-size:.3em;letter-spacing:.3em;text-indent:.3em;color:#666;margin-top:.15em;}
+.now-meta{font-size:.86em;line-height:1.6;color:#333;}
+.now-meta b{font-weight:bold;color:#1a1a1a;}
+.now-meta .dim{color:#888;}
 
-/* 今日天气：左侧大温度 + 右侧两行摘要 */
-.now td{vertical-align:middle;padding:0 .4em;}
-.now-temp{width:28%;text-align:center;border-right:1px solid #000;
-  font-size:2em;font-weight:bold;line-height:1.15;font-family:Georgia,"Times New Roman",serif;}
-.now-meta{font-size:.9em;line-height:1.55;}
+/* 七日：无线表格，行分隔线 */
+.grid td{border-bottom:1px solid #ddd;padding:.09em .3em;font-size:.82em;text-align:center;line-height:1.3;color:#333;}
+.grid tr.today-row td{font-weight:bold;color:#1a1a1a;border-bottom:1px solid #999;}
+.grid .c-date{width:4.2em;}
+.grid .c-bar{width:30%;}
+.tbar{display:inline-block;position:relative;width:92%;height:.42em;border:1px solid #999;vertical-align:middle;}
+.tfill{position:absolute;top:0;bottom:0;background:#666;}
 
-/* 近七日：紧凑表格 */
-.grid th,.grid td{border:1px solid #000;padding:.09em .3em;font-size:.8em;text-align:center;line-height:1.25;}
-.grid th{font-weight:bold;letter-spacing:.05em;}
-.week .c-date{width:4em;}
-.week .c-bar{width:30%;}
-.week tr.today-row td{font-weight:bold;}
-.tbar{display:inline-block;position:relative;width:94%;height:.5em;border:1px solid #000;vertical-align:middle;}
-.tfill{position:absolute;top:0;bottom:0;background:#000;}
+/* ============ 节日倒计时：圆角台历卡 ============ */
+.cd-cards{overflow:hidden;margin:0 -.4em;}
+.cd-card{float:left;width:50%;padding:0 .4em;}
+.cd-card .box{border:1px solid #1a1a1a;border-top:4px solid #1a1a1a;-webkit-border-radius:7px;border-radius:7px;
+  text-align:center;padding:.24em .3em .28em;}
+.cd-name{font-size:.86em;font-weight:bold;letter-spacing:.38em;text-indent:.38em;}
+.cd-num{font-size:1.78em;font-weight:normal;line-height:1.18;font-family:Georgia,"Times New Roman",serif;}
+.cd-num em{font-style:normal;font-size:.5em;color:#666;margin-left:.1em;}
+.cd-date{font-size:.7em;letter-spacing:.06em;color:#777;margin-top:.05em;}
 
-/* 节日倒计时：双卡片 */
-.cd-cards{overflow:hidden;margin:0 -.45em;}
-.cd-card{float:left;width:50%;padding:0 .45em;}
-.cd-card .box{border:1px solid #000;border-top:3px solid #000;text-align:center;padding:.28em .3em .32em;}
-.cd-name{font-size:.9em;font-weight:bold;letter-spacing:.4em;text-indent:.4em;}
-.cd-num{font-size:1.8em;font-weight:bold;line-height:1.15;font-family:Georgia,"Times New Roman",serif;}
-.cd-num em{font-style:normal;font-size:.55em;}
-.cd-date{font-size:.72em;letter-spacing:.05em;}
+/* ============ 生日：家人印章册 ============ */
+.brow{overflow:hidden;padding:.14em 0;border-bottom:1px dotted #bbb;}
+.brow:last-child{border-bottom:none;}
+.seal{display:inline-block;width:1.58em;height:1.58em;line-height:1.52em;text-align:center;
+  border:1px solid #1a1a1a;-webkit-border-radius:50%;border-radius:50%;
+  font-size:.8em;font-weight:bold;float:left;margin-top:.06em;background:#fff;}
+.b-nm{float:left;margin-left:.62em;font-size:.9em;letter-spacing:.05em;line-height:1.75;}
+.b-nm em{font-style:normal;font-size:.8em;color:#888;margin-left:.5em;}
+.b-dy{float:right;font-family:Georgia,"Times New Roman",serif;font-weight:bold;font-size:1.15em;line-height:1.3;}
+.b-dy em{font-style:normal;font-size:.58em;color:#666;font-weight:normal;margin-left:.05em;}
 
-/* 生日倒计时：账簿式虚线条目 */
-.brow{overflow:hidden;padding:.26em 0;border-bottom:1px dotted #000;}
-.b-nm{float:left;font-size:.9em;letter-spacing:.06em;}
-.b-nm:before{content:"";display:inline-block;width:.4em;height:.4em;background:#000;margin-right:.55em;}
-.b-nm em{font-style:normal;font-size:.78em;margin-left:.5em;}
-.b-dy{float:right;font-family:Georgia,"Times New Roman",serif;font-weight:bold;font-size:1.15em;line-height:1.1;}
-.b-dy em{font-style:normal;font-size:.6em;}
+/* ============ 每日一句 ============ */
+.fortune{text-align:center;padding:.22em 1.1em .26em;position:relative;}
+.fortune .qmark{position:absolute;top:-.18em;left:.1em;font-size:1.7em;color:#bbb;font-family:Georgia,serif;line-height:1;}
+.fortune .saying{font-size:.98em;font-style:italic;line-height:1.5;letter-spacing:.03em;}
+.fortune .source{font-size:.74em;color:#888;margin-top:.16em;letter-spacing:.05em;}
 
-/* 每日一句 */
-.fortune{border:1px solid #000;text-align:center;padding:.22em .8em .2em;}
-.fortune .saying{font-size:.98em;line-height:1.45;}
-.fortune .source{font-size:.76em;margin-top:.05em;}
+/* ============ 页脚 ============ */
+.foot{margin-top:.38em;border-top:1px solid #1a1a1a;padding-top:.32em;text-align:center;font-size:.68em;color:#888;}
+.foot .home{letter-spacing:.3em;text-indent:.3em;color:#666;}
+.btn{display:inline-block;border:1px solid #bbb;-webkit-border-radius:8px;border-radius:8px;background:#fff;color:#666;
+  font-family:inherit;font-size:.94em;letter-spacing:.08em;padding:.1em .6em;margin-left:.5em;cursor:pointer;}
+.btn:active{background:#1a1a1a;color:#fff;}
+.foot .upd{margin-right:.4em;}
 
-/* 按钮与页脚（单行） */
-.btn{display:inline-block;border:1px solid #000;background:#fff;color:#000;font-family:inherit;
-  font-size:.72em;letter-spacing:.1em;padding:.24em .85em;margin-left:.6em;cursor:pointer;}
-.btn:active{background:#000;color:#fff;}
-.foot{margin-top:.4em;border-top:1px solid #000;padding-top:.3em;text-align:center;font-size:.7em;}
-
-/* 更窄屏幕时再缩一档 */
 @media (max-width:480px){
   body{font-size:14px;}
-  .now-temp{font-size:2em;}
-  .grid th,.grid td{font-size:.8em;padding:.1em .25em;}
-  .cd-num{font-size:1.7em;}
-  .b-dy{font-size:1.05em;}
+  .now-temp{font-size:2.3em;}
 }
 </style>
 </head>
@@ -89,76 +91,65 @@ table{border-collapse:collapse;width:100%;}
 <div class="wrap">
 
 <!-- 报头 -->
-<div class="topbar"><b>杭 州</b> · <span id="dateline">2026年10月25日 · 星期日</span> · <span id="greet">晚上好</span></div>
+<div class="head">
+  <div class="date" id="dateline">2026年10月26日 · 星期一</div>
+  <div class="greet"><span id="greet">早安，家人</span><small id="cityline">HANGZHOU</small></div>
+</div>
 
 <!-- 今日天气 -->
-<div class="sec-title"><span>今 日 天 气</span></div>
+<div class="sec"><span>今 日 天 气</span></div>
 <table class="now">
   <tr>
-    <td class="now-temp" id="cur-temp">23°</td>
+    <td class="now-temp" id="cur-temp">19°<em>杭州</em></em></em></td>
     <td class="now-meta">
-      <div><span id="cur-desc">少云</span> · 体感 <span id="cur-feel">23°C</span> · 湿度 <span id="cur-hum">68%</span> · <span id="cur-wind">北风 3 级</span></div>
-      <div>今日 <span id="cur-range">17°C ~ 24°C</span> · 日出/日落 <span id="cur-sun">06:08 / 17:18</span></div>
+      <div><b id="cur-desc">晴</b> · 体感 <span id="cur-feel">20°C</span> · 湿度 <span id="cur-hum">80%</span> · <span id="cur-wind">东北风 1 级</span></div>
+      <div><span class="dim">今日</span> <span id="cur-range">15°C ~ 24°C</span> <span class="dim">· 日出日落</span> <span id="cur-sun">06:08 / 17:17</span></div>
     </td>
   </tr>
 </table>
 
-<!-- 近七日天气 -->
-<div class="sec-title"><span>近 七 日 天 气</span></div>
-<table class="grid week">
-  <thead>
-    <tr><th class="c-date">日期</th><th>星期</th><th>天气</th><th>气温</th><th class="c-bar">走势</th></tr>
-  </thead>
+<!-- 近七日 -->
+<div class="sec"><span>近 七 日 天 气</span></div>
+<table class="grid">
   <tbody id="week-body">
-    <tr class="today-row"><td>今天</td><td>周日</td><td>小雨</td><td>24° / 17°</td><td><span class="tbar"><span class="tfill" style="left:40%;width:53%;"></span></span></td></tr>
-    <tr><td>10/26</td><td>周一</td><td>多云</td><td>24° / 15°</td><td><span class="tbar"><span class="tfill" style="left:21%;width:72%;"></span></span></td></tr>
-    <tr><td>10/27</td><td>周二</td><td>小雨</td><td>22° / 15°</td><td><span class="tbar"><span class="tfill" style="left:22%;width:57%;"></span></span></td></tr>
-    <tr><td>10/28</td><td>周三</td><td>多云</td><td>20° / 12°</td><td><span class="tbar"><span class="tfill" style="left:2%;width:63%;"></span></span></td></tr>
-    <tr><td>10/29</td><td>周四</td><td>小雨</td><td>24° / 15°</td><td><span class="tbar"><span class="tfill" style="left:24%;width:72%;"></span></span></td></tr>
-    <tr><td>10/30</td><td>周五</td><td>阴</td><td>25° / 13°</td><td><span class="tbar"><span class="tfill" style="left:9%;width:91%;"></span></span></td></tr>
-    <tr><td>10/31</td><td>周六</td><td>晴</td><td>23° / 12°</td><td><span class="tbar"><span class="tfill" style="left:0%;width:86%;"></span></span></td></tr>
+    <tr class="today-row"><td>今天</td><td>周一</td><td>阴</td><td>24° / 15°</td><td><span class="tbar"><span class="tfill" style="left:20%;width:54%;"></span></span></td></tr>
+    <tr><td>10/27</td><td>周二</td><td>阴</td><td>22° / 14°</td><td><span class="tbar"><span class="tfill" style="left:15%;width:44%;"></span></span></td></tr>
+    <tr><td>10/28</td><td>周三</td><td>多云</td><td>21° / 12°</td><td><span class="tbar"><span class="tfill" style="left:0%;width:54%;"></span></span></td></tr>
+    <tr><td>10/29</td><td>周四</td><td>小雨</td><td>24° / 13°</td><td><span class="tbar"><span class="tfill" style="left:10%;width:66%;"></span></span></td></tr>
+    <tr><td>10/30</td><td>周五</td><td>多云</td><td>24° / 14°</td><td><span class="tbar"><span class="tfill" style="left:15%;width:58%;"></span></span></td></tr>
+    <tr><td>10/31</td><td>周六</td><td>雾</td><td>25° / 13°</td><td><span class="tbar"><span class="tfill" style="left:8%;width:71%;"></span></span></td></tr>
+    <tr><td>11/1</td><td>周日</td><td>小雨</td><td>28° / 15°</td><td><span class="tbar"><span class="tfill" style="left:20%;width:80%;"></span></span></td></tr>
   </tbody>
 </table>
 
 <!-- 节日倒计时 -->
-<div class="sec-title"><span>倒 计 时</span></div>
+<div class="sec"><span>期 待 的 日 子</span></div>
 <div class="cd-cards" id="fest-cards">
-  <div class="cd-card">
-    <div class="box">
-      <div class="cd-name">元 旦</div>
-      <div class="cd-num">69<em> 天</em></div>
-      <div class="cd-date">2027年1月1日</div>
-    </div>
-  </div>
-  <div class="cd-card">
-    <div class="box">
-      <div class="cd-name">除 夕</div>
-      <div class="cd-num">104<em> 天</em></div>
-      <div class="cd-date">2027年2月5日</div>
-    </div>
-  </div>
+  <div class="cd-card"><div class="box"><div class="cd-name">元 旦</div><div class="cd-num">67<em>天</em></div><div class="cd-date">2027年1月1日</div></div></div>
+  <div class="cd-card"><div class="box"><div class="cd-name">除 夕</div><div class="cd-num">102<em>天</em></div><div class="cd-date">2027年2月5日</div></div></div>
 </div>
 
-<!-- 生日倒计时 -->
-<div class="sub-label"><i></i>生 日 倒 计 时<i class="last"></i></div>
+<!-- 家人生日 -->
+<div class="sec"><span>家 人 生 日 <span class="heart">♥</span></span></div>
 <div id="birthday-list">
-  <div class="brow"><span class="b-nm">爸爸生日 <em>11月2日</em></span><span class="b-dy">9<em> 天</em></span></div>
-  <div class="brow"><span class="b-nm">妈妈生日 <em>12月28日</em></span><span class="b-dy">65<em> 天</em></span></div>
-  <div class="brow"><span class="b-nm">爷爷生日 <em>2027年3月10日 · 农历二月初三</em></span><span class="b-dy">137<em> 天</em></span></div>
-  <div class="brow"><span class="b-nm">兜兜生日 <em>2027年8月23日</em></span><span class="b-dy">303<em> 天</em></span></div>
-  <div class="brow"><span class="b-nm">奶奶生日 <em>2027年9月1日 · 农历八月初一</em></span><span class="b-dy">312<em> 天</em></span></div>
+  <div class="brow"><span class="seal">爸</span><span class="b-nm">爸爸 <em>每年11月2日</em></span><span class="b-dy">7<em>天</em></span></div>
+  <div class="brow"><span class="seal">妈</span><span class="b-nm">妈妈 <em>每年12月28日</em></span><span class="b-dy">63<em>天</em></span></div>
+  <div class="brow"><span class="seal">爷</span><span class="b-nm">爷爷 <em>2027年3月10日 · 农历二月初三</em></span><span class="b-dy">135<em>天</em></span></div>
+  <div class="brow"><span class="seal">兜</span><span class="b-nm">兜兜 <em>2027年8月23日</em></span><span class="b-dy">301<em>天</em></span></div>
+  <div class="brow"><span class="seal">奶</span><span class="b-nm">奶奶 <em>2027年9月1日 · 农历八月初一</em></span><span class="b-dy">310<em>天</em></span></div>
 </div>
 
 <!-- 每日一句 -->
-<div class="sec-title"><span>每 日 一 句</span></div>
+<div class="sec"><span>每 日 一 句</span></div>
 <div class="fortune">
+  <span class="qmark">“</span>
   <div class="saying" id="quote-text">老骥伏枥，志在千里；烈士暮年，壮心不已。</div>
   <div class="source" id="quote-src">—— 曹操《龟虽寿》</div>
 </div>
 
 <!-- 页脚 -->
 <div class="foot">
-  <span id="update-time">更新于 12:15 · Open-Meteo</span><button class="btn" onclick="nextQuote()">换一句</button><button class="btn" onclick="refresh()">刷新天气</button>
+  <span class="home">我 们 的 家 ♥</span><span class="upd" id="update-time">更新于 19:15</span><button class="btn" onclick="nextQuote()">换一句</button><button class="btn" onclick="refresh()">刷新天气</button>
 </div>
 
 </div>
@@ -180,14 +171,14 @@ var CHUXI = ["2026-02-16","2027-02-05","2028-01-25","2029-02-12","2030-02-02","2
   "2033-01-30","2034-02-18","2035-02-07","2036-01-27"];
 /* 农历生日换算表（2026-2036，lunardate 库生成） */
 var LUNAR = [
-  {name:"爷爷生日", note:"农历二月初三", dates:["2026-03-21","2027-03-10","2028-02-27","2029-03-17","2030-03-06","2031-02-23","2032-03-14","2033-03-03","2034-03-22","2035-03-12","2036-02-29"]},
-  {name:"奶奶生日", note:"农历八月初一", dates:["2026-09-11","2027-09-01","2028-09-19","2029-09-08","2030-08-29","2031-09-17","2032-09-05","2033-08-25","2034-09-13","2035-09-02","2036-09-20"]}
+  {name:"爷爷", note:"农历二月初三", dates:["2026-03-21","2027-03-10","2028-02-27","2029-03-17","2030-03-06","2031-02-23","2032-03-14","2033-03-03","2034-03-22","2035-03-12","2036-02-29"]},
+  {name:"奶奶", note:"农历八月初一", dates:["2026-09-11","2027-09-01","2028-09-19","2029-09-08","2030-08-29","2031-09-17","2032-09-05","2033-08-25","2034-09-13","2035-09-02","2036-09-20"]}
 ];
-/* 公历生日 */
+/* 公历生日：印章字 + 显示名 */
 var SOLAR_BIRTHDAYS = [
-  {name:"爸爸生日", m:11, d:2},
-  {name:"妈妈生日", m:12, d:28},
-  {name:"兜兜生日", m:8, d:23}
+  {seal:"爸", name:"爸爸", m:11, d:2},
+  {seal:"妈", name:"妈妈", m:12, d:28},
+  {seal:"兜", name:"兜兜", m:8, d:23}
 ];
 
 var QUOTES = [
@@ -214,7 +205,7 @@ var QUOTES = [
   {t:"问渠那得清如许？为有源头活水来。", s:"—— 朱熹《观书有感》"},
   {t:"纸上得来终觉浅，绝知此事要躬行。", s:"—— 陆游《冬夜读书示子聿》"},
   {t:"采得百花成蜜后，为谁辛苦为谁甜。", s:"—— 罗隐《蜂》"},
-  {t:"春蚕到死丝方尽，蜡炬成灰泪始干。", s:"—— 李商隐《无题》"},
+  {t:"春蚕到死丝丝尽，蜡炬成灰泪始干。", s:"—— 李商隐《无题》"},
   {t:"一日之计在于晨，一年之计在于春。", s:"—— 古谚"},
   {t:"读书不觉已春深，一寸光阴一寸金。", s:"—— 王贞白《白鹿洞》"},
   {t:"黑发不知勤学早，白首方悔读书迟。", s:"—— 颜真卿《劝学》"},
@@ -242,14 +233,14 @@ function r0(n){ return Math.round(n); }
 
 function render(data){
   var c = data.current, d = data.daily;
-  $("cur-temp").innerHTML = r0(c.temperature_2m) + "°";
+  $("cur-temp").innerHTML = r0(c.temperature_2m) + "°<em>杭州</em>";
   $("cur-range").innerHTML = r0(d.temperature_2m_min[0]) + "°C ~ " + r0(d.temperature_2m_max[0]) + "°C";
   $("cur-desc").innerHTML = wmo(c.weather_code);
   $("cur-feel").innerHTML = r0(c.apparent_temperature) + "°C";
   $("cur-hum").innerHTML = r0(c.relative_humidity_2m) + "%";
   $("cur-wind").innerHTML = windDir(c.wind_direction_10m) + "风 " + windLevel(c.wind_speed_10m) + " 级";
   $("cur-sun").innerHTML = hhmm(d.sunrise[0]) + " / " + hhmm(d.sunset[0]);
-  $("update-time").innerHTML = "更新于 " + hhmm(c.time) + " · Open-Meteo";
+  $("update-time").innerHTML = "更新于 " + hhmm(c.time);
 
   var gmin = Math.min.apply(null, d.temperature_2m_min);
   var gmax = Math.max.apply(null, d.temperature_2m_max);
@@ -320,34 +311,37 @@ function renderFestivals(){
   var html = "";
   html += '<div class="cd-card"><div class="box">'
     + '<div class="cd-name">元 旦</div>'
-    + '<div class="cd-num">' + ny.days + '<em> 天</em></div>'
+    + '<div class="cd-num">' + ny.days + '<em>天</em></div>'
     + '<div class="cd-date">' + ny.label + '</div></div></div>';
   if (cx){
     html += '<div class="cd-card"><div class="box">'
       + '<div class="cd-name">除 夕</div>'
-      + '<div class="cd-num">' + cx.days + '<em> 天</em></div>'
+      + '<div class="cd-num">' + cx.days + '<em>天</em></div>'
       + '<div class="cd-date">' + cx.label + '</div></div></div>';
   }
   $("fest-cards").innerHTML = html;
 }
 
-/* 生日倒计时：点线条目，按剩余天数升序 */
+/* 生日倒计时：印章条目，按剩余天数升序 */
 function renderBirthdays(){
   var list = [];
   for (var i = 0; i < SOLAR_BIRTHDAYS.length; i++){
     var r = solarNext(SOLAR_BIRTHDAYS[i].m, SOLAR_BIRTHDAYS[i].d);
-    list.push({name: SOLAR_BIRTHDAYS[i].name, label: r.label, days: r.days});
+    list.push({seal: SOLAR_BIRTHDAYS[i].seal, name: SOLAR_BIRTHDAYS[i].name,
+      label: (r.label.indexOf("年") > -1 ? r.label : "每年" + r.label), days: r.days});
   }
   for (var j = 0; j < LUNAR.length; j++){
     var lr = listNext(LUNAR[j].dates);
-    if (lr) list.push({name: LUNAR[j].name, label: lr.label + " · " + LUNAR[j].note, days: lr.days});
+    if (lr) list.push({seal: LUNAR[j].name.charAt(0), name: LUNAR[j].name,
+      label: lr.label + " · " + LUNAR[j].note, days: lr.days});
   }
   list.sort(function(a, b){ return a.days - b.days; });
   var html = "";
   for (var k = 0; k < list.length; k++){
     html += '<div class="brow">'
+      + '<span class="seal">' + list[k].seal + '</span>'
       + '<span class="b-nm">' + list[k].name + ' <em>' + list[k].label + '</em></span>'
-      + '<span class="b-dy">' + list[k].days + '<em> 天</em></span></div>';
+      + '<span class="b-dy">' + list[k].days + '<em>天</em></span></div>';
   }
   $("birthday-list").innerHTML = html;
 }
@@ -356,12 +350,13 @@ function renderDate(){
   var now = new Date();
   $("dateline").innerHTML = now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate()
     + "日 · 星期" + "日一二三四五六".charAt(now.getDay());
-  var h = now.getHours(), g = "晚上好";
-  if (h < 5) g = "夜深了";
-  else if (h < 9) g = "早上好";
-  else if (h < 12) g = "上午好";
-  else if (h < 14) g = "中午好";
-  else if (h < 18) g = "下午好";
+  var h = now.getHours(), g = "夜深了，好梦";
+  if (h < 5) g = "夜深了，好梦";
+  else if (h < 9) g = "早安，家人";
+  else if (h < 12) g = "上午好，家人";
+  else if (h < 14) g = "午后好，家人";
+  else if (h < 18) g = "下午好，家人";
+  else if (h < 23) g = "晚上好，家人";
   $("greet").innerHTML = g;
 }
 
