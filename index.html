@@ -64,17 +64,17 @@ body{
 
 /* --- 各处的停车位 --- */
 /* 报头：一辆面包车停在信笺双线上 */
-.headcar{font-size:.92em;right:0;bottom:.02em;}
+.headcar{font-size:.92em;right:.05em;bottom:-.1em;}
 /* 假日卡标题栏：车轮压着标题栏的下边线（那条线就是它的路） */
-.holcar{font-size:1.4286em;right:.5em;bottom:-1px;}
-/* 笑话标题栏前的小跑车 */
-.headmini{position:relative;display:inline-block;vertical-align:-.28em;margin-right:.48em;font-size:1.2em;}
+.holcar{font-size:1.4286em;right:.5em;bottom:-2px;}
+/* 笑话标题栏：巴士停在标题栏的分隔线上（与假日卡的轿车左右对称） */
+.headmini{left:.5em;bottom:-2px;font-size:1.42em;}
 /* 笑话卡右下角：一辆巴士停靠 */
-.jokecar{font-size:1.06em;right:.62em;bottom:0;}
+.jokecar{font-size:1.06em;right:.62em;bottom:-.12em;}
 /* 家人生日卡：车停在卡顶的边线上 */
-.bcar5{font-size:1.2em;left:50%;margin-left:-1.2em;top:-1.34em;}
+.bcar5{font-size:1.2em;left:50%;margin-left:-1.2em;top:-1.04em;}
 /* 账本：小卡车守着钱箱 */
-.ledcar{font-size:1.04em;right:.72em;bottom:.08em;}
+.ledcar{font-size:1.04em;right:.72em;bottom:-.1em;}
 
 /* ============ 章节头：细线 + 小星 ============ */
 .sec{margin:.56em 0 .3em;text-align:center;position:relative;}
@@ -94,7 +94,7 @@ table{border-collapse:collapse;width:100%;}
 .bigtemp{display:inline-block;vertical-align:middle;font-size:2.7em;
   font-family:Georgia,"Times New Roman",serif;line-height:1;}
 .city{font-size:.58em;letter-spacing:.28em;text-indent:.28em;color:#666;margin-top:.06em;}
-.now-meta{font-size:.78em;line-height:1.72;color:#333;}
+.now-meta{font-size:.78em;line-height:1.72;color:#333;text-align:center;padding-left:.5em;}
 .now-meta b{font-weight:bold;color:#1a1a1a;}
 .now-meta .dim{color:#888;}
 
@@ -140,10 +140,10 @@ table{border-collapse:collapse;width:100%;}
 /* ============ 假日 + 笑话：两块严格同宽同高 ============ */
 .duo{overflow:hidden;margin:.44em -.3em 0;}
 .duo-l,.duo-r{float:left;width:50%;padding:0 .3em;}
-.duo-card{border:1px solid #1a1a1a;-webkit-border-radius:9px;border-radius:9px;overflow:hidden;height:7.8em;position:relative;}
+.duo-card{border:1px solid #1a1a1a;-webkit-border-radius:9px;border-radius:9px;height:7.8em;position:relative;}
 .duo-head{height:1.95em;line-height:1.95em;text-align:center;font-size:.7em;font-weight:bold;
   letter-spacing:.22em;text-indent:.22em;background:#eeeeee;border-bottom:1px solid #1a1a1a;
-  position:relative;}
+  position:relative;-webkit-border-radius:8px 8px 0 0;border-radius:8px 8px 0 0;}
 .duo-body{height:5.8em;padding:.6em .34em 0;text-align:center;overflow:hidden;}
 
 .holi-name{font-size:.84em;font-weight:bold;letter-spacing:.22em;text-indent:.22em;}
@@ -157,7 +157,6 @@ table{border-collapse:collapse;width:100%;}
 .joke-body{display:table;width:100%;height:5.8em;padding:0 2.9em 0 .5em;}
 .joke-mid{display:table-cell;vertical-align:middle;text-align:center;}
 .joke-text{font-size:.8em;line-height:1.44;}
-.joke-foot{font-size:.62em;color:#999;margin-top:.18em;letter-spacing:.04em;}
 
 /* ============ 家人生日：一行五卡 ============ */
 .brow5{margin:1.2em -.22em 0;}
@@ -173,7 +172,8 @@ table{border-collapse:collapse;width:100%;}
 
 /* ============ 家庭账本：三格占位 ============ */
 .ledger{border:1px solid #1a1a1a;-webkit-border-radius:8px;border-radius:8px;
-  padding:.56em 0 .52em;overflow:hidden;position:relative;}
+  padding:.56em 0 .52em;position:relative;}
+.ledger:after{content:"";display:block;clear:both;height:0;overflow:hidden;}
 .lcell{float:left;width:33.33%;text-align:center;line-height:1.55;height:4.8em;padding-top:.28em;}
 .lcell + .lcell{border-left:1px dotted #bbb;}
 .ltag{display:block;font-size:.72em;color:#666;letter-spacing:.14em;text-indent:.14em;}
@@ -253,7 +253,6 @@ table{border-collapse:collapse;width:100%;}
       <div class="joke-body">
         <div class="joke-mid">
           <div class="joke-text" id="joke-text">我发誓要早睡，于是熬夜查了三个小时的「熬夜的危害」。</div>
-          <div class="joke-foot" id="joke-no">今日第 1 则</div>
         </div>
       </div>
     </div>
@@ -535,7 +534,6 @@ function dayIndex(){
 }
 function renderJoke(){
   $("joke-text").innerHTML = JOKES[qIndex];
-  $("joke-no").innerHTML = "今日第 " + (qIndex + 1) + " 则 · 共 " + JOKES.length + " 则";
 }
 function nextJoke(){
   qIndex = (qIndex + 1) % JOKES.length;
