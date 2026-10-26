@@ -22,22 +22,62 @@ body{
 .head .greet{font-size:1.14em;font-weight:bold;letter-spacing:.2em;text-indent:.2em;margin-top:.06em;}
 .head .greet small{font-size:.5em;font-weight:normal;letter-spacing:.18em;color:#666;margin-left:.85em;}
 
-/* ============ 卡通小图标：笑脸 / 云朵 ============ */
-.face{display:inline-block;width:1.05em;height:1.05em;border:1.5px solid #1a1a1a;
-  -webkit-border-radius:50%;border-radius:50%;position:relative;vertical-align:-.2em;
-  margin-right:.42em;background:#fff;}
-.face:before{content:"";position:absolute;top:.22em;left:.17em;width:.12em;height:.12em;background:#1a1a1a;
-  -webkit-border-radius:50%;border-radius:50%;-webkit-box-shadow:/1;box-shadow:/1;}
-.face:after{content:"";position:absolute;bottom:.12em;left:.2em;width:.38em;height:.18em;
-  border-bottom:1.5px solid #1a1a1a;-webkit-border-radius:0 0 .38em .38em;border-radius:0 0 .38em .38em;}
-.cloud{display:inline-block;width:1.5em;height:.8em;position:relative;vertical-align:.1em;margin:0 .55em;}
-.cloud:before{content:"";position:absolute;left:0;bottom:0;width:1.5em;height:.58em;
-  border:1.3px solid #888;-webkit-border-radius:.34em;border-radius:.34em;background:#fff;}
-.cloud:after{content:"";position:absolute;left:.3em;bottom:.4em;width:.56em;height:.56em;
-  border:1.3px solid #888;border-bottom-color:transparent;-webkit-border-radius:50%;border-radius:50%;background:#fff;}
+/* ============ 卡通汽车：全站统一的绘图语言 ============ */
+/* 基础车：车身 .bd + 车厢/车窗 .rf + 两只轮子 .w1/.w2 + 可选 .xt */
+.car{position:absolute;font-size:1em;width:2em;height:1.15em;z-index:3;}
+.car i{position:absolute;display:block;font-style:normal;}
+.car .bd{left:0;bottom:.24em;width:2em;height:.62em;background:#fff;
+  border:1.3px solid #1a1a1a;-webkit-border-radius:.14em .32em .16em .16em;border-radius:.14em .32em .16em .16em;}
+.car .rf{left:.34em;bottom:.86em;width:.92em;height:.44em;background:#1a1a1a;
+  -webkit-border-radius:.28em .28em 0 0;border-radius:.28em .28em 0 0;}
+.car .w{bottom:0;width:.44em;height:.44em;background:#fff;border:1.3px solid #1a1a1a;
+  -webkit-border-radius:50%;border-radius:50%;}
+.car .w1{left:.18em;}
+.car .w2{right:.26em;}
+.car .xt{display:none;}
+/* 面包车：高车厢 + 深色侧窗带 */
+.t-van .bd{bottom:.22em;height:.8em;-webkit-border-radius:.12em .24em .1em .1em;border-radius:.12em .24em .1em .1em;}
+.t-van .rf{left:.22em;bottom:.54em;width:1.36em;height:.3em;background:#1a1a1a;
+  -webkit-border-radius:.06em;border-radius:.06em;}
+/* 小卡车：驾驶室 + 货箱 */
+.t-truck .bd{width:.84em;height:.72em;bottom:.24em;
+  -webkit-border-radius:.12em .28em .1em .1em;border-radius:.12em .28em .1em .1em;}
+.t-truck .rf{left:.94em;bottom:.24em;width:1.06em;height:.84em;background:#fff;
+  border:1.3px solid #1a1a1a;-webkit-border-radius:.1em;border-radius:.1em;}
+.t-truck .xt{display:block;left:.14em;bottom:.64em;width:.32em;height:.26em;background:#1a1a1a;
+  -webkit-border-radius:.05em;border-radius:.05em;}
+.t-truck .w1{left:.16em;}
+.t-truck .w2{right:.3em;}
+/* 巴士：长车身 + 通排车窗 */
+.t-bus .bd{bottom:.12em;height:.96em;-webkit-border-radius:.12em .2em .08em .08em;border-radius:.12em .2em .08em .08em;}
+.t-bus .rf{left:.14em;bottom:.58em;width:1.72em;height:.3em;background:#1a1a1a;
+  -webkit-border-radius:.05em;border-radius:.05em;}
+.t-bus .w1{left:.3em;}
+.t-bus .w2{right:.34em;}
+/* 跑车：低趴车身 + 尾翼 */
+.t-racer .bd{bottom:.2em;height:.44em;width:1.9em;
+  -webkit-border-radius:.08em .6em .1em .1em;border-radius:.08em .6em .1em .1em;}
+.t-racer .rf{left:.46em;bottom:.64em;width:.62em;height:.26em;background:#1a1a1a;
+  -webkit-border-radius:.12em .16em 0 0;border-radius:.12em .16em 0 0;}
+.t-racer .xt{display:block;left:1.44em;bottom:.7em;width:.46em;height:.1em;background:#1a1a1a;
+  -webkit-border-radius:.04em;border-radius:.04em;}
+
+/* --- 各处的停车位 --- */
+/* 报头：一辆面包车停在信笺双线上 */
+.headcar{font-size:.92em;right:0;bottom:.02em;}
+/* 假日卡标题栏：车轮压着标题栏的下边线（那条线就是它的路） */
+.holcar{font-size:1.4286em;right:.5em;bottom:-1px;}
+/* 笑话标题栏前的小跑车 */
+.headmini{position:relative;display:inline-block;vertical-align:-.28em;margin-right:.48em;font-size:1.2em;}
+/* 笑话卡右下角：一辆巴士停靠 */
+.jokecar{font-size:1.06em;right:.62em;bottom:0;}
+/* 家人生日卡：车停在卡顶的边线上 */
+.bcar5{font-size:1.2em;left:50%;margin-left:-1.2em;top:-1.34em;}
+/* 账本：小卡车守着钱箱 */
+.ledcar{font-size:1.04em;right:.72em;bottom:.08em;}
 
 /* ============ 章节头：细线 + 小星 ============ */
-.sec{margin:.48em 0 .26em;text-align:center;position:relative;}
+.sec{margin:.56em 0 .3em;text-align:center;position:relative;}
 .sec span{display:inline-block;font-size:.73em;font-weight:bold;letter-spacing:.36em;text-indent:.36em;
   background:#fff;padding:0 .85em;position:relative;z-index:1;}
 .sec span:before{content:"★";font-size:.72em;letter-spacing:0;margin-right:.7em;vertical-align:.1em;}
@@ -46,34 +86,51 @@ body{
 
 /* ============ 天气 ============ */
 table{border-collapse:collapse;width:100%;}
-.now td{vertical-align:middle;padding:.14em .5em;}
-.now-temp{width:31%;text-align:center;border-right:1px solid #bbb;}
-.wicon{display:inline-block;width:1.45em;height:1.45em;position:relative;vertical-align:middle;}
-/* 太阳：圆 + 十字光芒 */
-.w-sun:before{content:"";position:absolute;left:.22em;top:.22em;width:.95em;height:.95em;
-  border:1.6px solid #1a1a1a;-webkit-border-radius:50%;border-radius:50%;}
-.w-sun:after{content:"";position:absolute;left:.66em;top:-.14em;width:1.6px;height:.28em;background:#1a1a1a;
-  -webkit-box-shadow:/1;box-shadow:/1;}
-.w-sun i{display:block;position:absolute;top:.66em;left:-.14em;width:.28em;height:1.6px;background:#1a1a1a;
-  -webkit-box-shadow:/1;box-shadow:/1;}
-/* 云：圆角方 + 圆头 */
-.w-cloud:before{content:"";position:absolute;left:.05em;bottom:.16em;width:1.35em;height:.62em;
-  border:1.6px solid #1a1a1a;-webkit-border-radius:.4em;border-radius:.4em;background:#fff;}
-.w-cloud:after{content:"";position:absolute;left:.3em;bottom:.6em;width:.6em;height:.6em;
-  border:1.6px solid #1a1a1a;border-bottom-color:transparent;-webkit-border-radius:50%;border-radius:50%;background:#fff;}
-/* 雨：云 + 两滴斜线 */
-.w-rain:before{content:"";position:absolute;left:.05em;bottom:.5em;width:1.35em;height:.58em;
-  border:1.6px solid #1a1a1a;-webkit-border-radius:.4em;border-radius:.4em;background:#fff;}
-.w-rain:after{content:"";position:absolute;left:.3em;bottom:.04em;width:1.6px;height:.42em;background:#1a1a1a;
-  -webkit-transform:rotate(18deg);transform:rotate(18deg);-webkit-box-shadow:/1;box-shadow:/1;}
-.bigtemp{font-size:2em;font-family:Georgia,"Times New Roman",serif;line-height:1.05;}
-.city{font-size:.44em;letter-spacing:.28em;text-indent:.28em;color:#666;margin-top:.05em;}
-.now-meta{font-size:.86em;line-height:1.6;color:#333;}
+.now td{vertical-align:middle;padding:.1em .55em .1em .1em;}
+.now-temp{width:40%;text-align:center;border-right:1px solid #bbb;padding-left:.6em;}
+.wtemp{white-space:nowrap;line-height:1;}
+.wicon{display:inline-block;width:2.6em;height:2.6em;position:relative;vertical-align:middle;
+  margin-right:.28em;}
+.bigtemp{display:inline-block;vertical-align:middle;font-size:2.7em;
+  font-family:Georgia,"Times New Roman",serif;line-height:1;}
+.city{font-size:.58em;letter-spacing:.28em;text-indent:.28em;color:#666;margin-top:.06em;}
+.now-meta{font-size:.78em;line-height:1.72;color:#333;}
 .now-meta b{font-weight:bold;color:#1a1a1a;}
 .now-meta .dim{color:#888;}
 
+/* 晴：圆盘 + 四道光芒 */
+.w-sun:before{content:"";position:absolute;left:.62em;top:.62em;width:1.36em;height:1.36em;
+  background:#1a1a1a;-webkit-border-radius:50%;border-radius:50%;}
+.w-sun:after{content:"";position:absolute;left:1.21em;top:0;width:.18em;height:.52em;background:#1a1a1a;
+  -webkit-box-shadow:0 2.08em 0 #1a1a1a;box-shadow:0 2.08em 0 #1a1a1a;}
+.w-sun i{display:block;position:absolute;top:1.21em;left:0;width:.52em;height:.18em;background:#1a1a1a;
+  -webkit-box-shadow:2.08em 0 0 #1a1a1a;box-shadow:2.08em 0 0 #1a1a1a;}
+/* 阴 / 雾：双层云 */
+.w-cloud:before{content:"";position:absolute;left:.07em;bottom:.38em;width:2.4em;height:.85em;
+  border:2px solid #1a1a1a;-webkit-border-radius:.42em;border-radius:.42em;background:#fff;}
+.w-cloud:after{content:"";position:absolute;left:.34em;bottom:1em;width:1.08em;height:1.08em;
+  border:2px solid #1a1a1a;border-bottom-color:transparent;-webkit-border-radius:50%;border-radius:50%;background:#fff;}
+.w-cloud i{display:block;position:absolute;left:1.12em;bottom:.98em;width:.98em;height:.98em;
+  border:2px solid #1a1a1a;border-bottom-color:transparent;-webkit-border-radius:50%;border-radius:50%;background:#fff;}
+/* 多云：云后露出太阳 */
+.w-partly:before{content:"";position:absolute;left:1.48em;top:1.02em;width:.92em;height:.92em;
+  border:2px solid #1a1a1a;-webkit-border-radius:50%;border-radius:50%;background:#fff;}
+.w-partly:after{content:"";position:absolute;left:.07em;bottom:.3em;width:2.4em;height:.85em;
+  border:2px solid #1a1a1a;-webkit-border-radius:.42em;border-radius:.42em;background:#fff;}
+.w-partly i{display:block;position:absolute;left:.34em;bottom:.98em;width:.98em;height:.98em;
+  border:2px solid #1a1a1a;border-bottom-color:transparent;-webkit-border-radius:50%;border-radius:50%;background:#fff;}
+/* 雨：云 + 三滴斜雨 */
+.w-rain:before{content:"";position:absolute;left:.07em;bottom:1.02em;width:2.4em;height:.8em;
+  border:2px solid #1a1a1a;-webkit-border-radius:.4em;border-radius:.4em;background:#fff;}
+.w-rain:after{content:"";position:absolute;left:.44em;bottom:1.56em;width:.94em;height:.9em;
+  border:2px solid #1a1a1a;border-bottom-color:transparent;-webkit-border-radius:50%;border-radius:50%;background:#fff;}
+.w-rain i{display:block;position:absolute;left:.4em;bottom:.08em;width:2px;height:.62em;background:#1a1a1a;
+  -webkit-transform:rotate(16deg);transform:rotate(16deg);
+  -webkit-box-shadow:.82em -.05em 0 #1a1a1a,1.64em .03em 0 #1a1a1a;
+  box-shadow:.82em -.05em 0 #1a1a1a,1.64em .03em 0 #1a1a1a;}
+
 /* 未来六日：无线表格 */
-.grid td{border-bottom:1px solid #ddd;padding:.17em .3em;font-size:.8em;text-align:center;line-height:1.24;color:#333;}
+.grid td{border-bottom:1px solid #ddd;padding:.18em .3em;font-size:.8em;text-align:center;line-height:1.24;color:#333;}
 .grid tr.tomorrow td{font-weight:bold;color:#1a1a1a;border-bottom:1px solid #999;}
 .grid .c-date{width:4.2em;}
 .grid .c-bar{width:32%;}
@@ -83,11 +140,11 @@ table{border-collapse:collapse;width:100%;}
 /* ============ 假日 + 笑话：两块严格同宽同高 ============ */
 .duo{overflow:hidden;margin:.44em -.3em 0;}
 .duo-l,.duo-r{float:left;width:50%;padding:0 .3em;}
-.duo-card{border:1px solid #1a1a1a;-webkit-border-radius:9px;border-radius:9px;overflow:hidden;height:7.6em;position:relative;}
+.duo-card{border:1px solid #1a1a1a;-webkit-border-radius:9px;border-radius:9px;overflow:hidden;height:7.8em;position:relative;}
 .duo-head{height:1.95em;line-height:1.95em;text-align:center;font-size:.7em;font-weight:bold;
   letter-spacing:.22em;text-indent:.22em;background:#eeeeee;border-bottom:1px solid #1a1a1a;
   position:relative;}
-.duo-body{height:5.6em;padding:.52em .34em 0;text-align:center;overflow:hidden;}
+.duo-body{height:5.8em;padding:.6em .34em 0;text-align:center;overflow:hidden;}
 
 .holi-name{font-size:.84em;font-weight:bold;letter-spacing:.22em;text-indent:.22em;}
 .holi-num{font-size:1.58em;font-weight:normal;line-height:1.1;font-family:Georgia,"Times New Roman",serif;}
@@ -97,17 +154,17 @@ table{border-collapse:collapse;width:100%;}
 .holi-next b{color:#666;font-weight:normal;}
 
 /* 笑话：垂直居中 */
-.joke-body{display:table;width:100%;height:5.6em;padding:0 2.9em 0 .5em;}
+.joke-body{display:table;width:100%;height:5.8em;padding:0 2.9em 0 .5em;}
 .joke-mid{display:table-cell;vertical-align:middle;text-align:center;}
 .joke-text{font-size:.8em;line-height:1.44;}
 .joke-foot{font-size:.62em;color:#999;margin-top:.18em;letter-spacing:.04em;}
 
 /* ============ 家人生日：一行五卡 ============ */
-.brow5{margin:.55em -.22em 0;}
+.brow5{margin:1.2em -.22em 0;}
 .brow5:after{content:"";display:block;clear:both;height:0;overflow:hidden;}
 .bcard5{float:left;width:20%;padding:0 .22em;}
 .bcard5 .binner{border:1px solid #1a1a1a;-webkit-border-radius:7px;border-radius:7px;
-  padding:1.18em .1em .56em;text-align:center;position:relative;}
+  padding:.58em .1em .56em;text-align:center;position:relative;}
 .bcard5 b{display:block;font-size:.88em;font-weight:bold;letter-spacing:.08em;line-height:1.32;}
 .bcard5 em{display:block;font-style:normal;font-size:.62em;color:#888;line-height:1.4;margin-top:.14em;}
 .bcard5 .b-dy{display:block;font-family:Georgia,"Times New Roman",serif;font-weight:bold;font-size:1.05em;
@@ -116,8 +173,8 @@ table{border-collapse:collapse;width:100%;}
 
 /* ============ 家庭账本：三格占位 ============ */
 .ledger{border:1px solid #1a1a1a;-webkit-border-radius:8px;border-radius:8px;
-  padding:.5em 0 .46em;overflow:hidden;position:relative;}
-.lcell{float:left;width:33.33%;text-align:center;line-height:1.5;height:4.7em;padding-top:.34em;}
+  padding:.56em 0 .52em;overflow:hidden;position:relative;}
+.lcell{float:left;width:33.33%;text-align:center;line-height:1.55;height:4.8em;padding-top:.28em;}
 .lcell + .lcell{border-left:1px dotted #bbb;}
 .ltag{display:block;font-size:.72em;color:#666;letter-spacing:.14em;text-indent:.14em;}
 .lval{display:block;font-size:1.22em;font-weight:bold;font-family:Georgia,"Times New Roman",serif;margin:.04em 0 .02em;}
@@ -125,97 +182,13 @@ table{border-collapse:collapse;width:100%;}
 .lnote{display:block;font-size:.6em;color:#bbb;letter-spacing:.06em;}
 
 /* ============ 页脚 ============ */
-.foot{margin-top:.52em;border-top:1px solid #1a1a1a;padding-top:.34em;text-align:center;font-size:.66em;color:#888;}
+.foot{margin-top:.62em;border-top:1px solid #1a1a1a;padding-top:.4em;text-align:center;font-size:.66em;color:#888;}
 .foot .home{letter-spacing:.26em;text-indent:.26em;color:#666;}
 .foot .home i{font-style:normal;font-size:.9em;margin:0 .3em;color:#1a1a1a;}
 .btn{display:inline-block;border:1px solid #bbb;-webkit-border-radius:8px;border-radius:8px;background:#fff;color:#666;
   font-family:inherit;font-size:.94em;letter-spacing:.06em;padding:.06em .55em;margin-left:.4em;cursor:pointer;}
 .btn:active{background:#1a1a1a;color:#fff;}
 .foot .upd{margin-right:.28em;}
-
-/* ============ 卡通角色：与卡片结构融为一体 ============ */
-/* --- 小汽车：沿「下一个假日」标题栏的底边行驶，标题栏的边就是它的路 --- */
-.duo-head .car{font-size:1.4286em;position:absolute;right:.52em;bottom:-1px;width:2.0em;height:1.15em;}
-.duo-head .car u{position:absolute;left:0;bottom:.29em;width:2.0em;height:.62em;background:#fff;
-  border:1.3px solid #1a1a1a;-webkit-border-radius:.16em .38em .18em .18em;border-radius:.16em .38em .18em .18em;}
-.duo-head .car u:before{content:"";position:absolute;left:.36em;top:-.46em;width:.9em;height:.48em;background:#fff;
-  border:1.3px solid #1a1a1a;border-bottom:0;-webkit-border-radius:.3em .3em 0 0;border-radius:.3em .3em 0 0;}
-.duo-head .car u:after{content:"";position:absolute;left:.5em;top:-.34em;width:.28em;height:.3em;background:#1a1a1a;}
-.duo-head .car i{position:absolute;bottom:0;width:.44em;height:.44em;background:#fff;
-  border:1.3px solid #1a1a1a;-webkit-border-radius:50%;border-radius:50%;}
-.duo-head .car i.w1{left:.2em;}
-.duo-head .car i.w2{right:.3em;}
-.duo-head .car b{position:absolute;left:-.5em;bottom:.4em;width:.09em;height:.09em;background:#aaa;
-  -webkit-border-radius:50%;border-radius:50%;-webkit-box-shadow:/1;box-shadow:/1;}
-
-/* --- 小猫：趴在「笑一笑」卡片右下角，两只前爪搭在卡片底边上 --- */
-.cat{position:absolute;right:.5em;bottom:0;width:2.1em;height:1.95em;}
-.cat .ear{position:absolute;bottom:1.62em;width:0;height:0;
-  border-left:.24em solid transparent;border-right:.24em solid transparent;border-bottom:.48em solid #1a1a1a;}
-.cat .ear.l{left:.3em;}
-.cat .ear.r{left:1.06em;}
-.cat .head{position:absolute;left:.12em;bottom:.16em;width:1.86em;height:1.62em;background:#fff;
-  border:1.5px solid #1a1a1a;-webkit-border-radius:50%;border-radius:50%;}
-.cat .eye{position:absolute;left:.62em;bottom:.92em;width:.13em;height:.14em;background:#1a1a1a;
-  -webkit-border-radius:50%;border-radius:50%;-webkit-box-shadow:/1;box-shadow:/1;}
-.cat .nose{position:absolute;left:.92em;bottom:.72em;width:.2em;height:.16em;background:#1a1a1a;
-  -webkit-border-radius:.04em .04em .1em .1em;border-radius:.04em .04em .1em .1em;}
-.cat .wh{position:absolute;left:-.12em;bottom:.78em;width:.3em;height:0;border-top:1.2px solid #999;
-  -webkit-box-shadow:/1;box-shadow:/1;}
-.cat .paw{position:absolute;bottom:0;width:.46em;height:.3em;background:#fff;
-  border:1.4px solid #1a1a1a;-webkit-border-radius:.22em;border-radius:.22em;}
-.cat .paw.l{left:.5em;}
-.cat .paw.r{left:1.16em;}
-
-/* --- 家人生日卡：每张卡顶边坐着一只小动物（头顶探出卡边，像纪念章） --- */
-.av{position:absolute;left:50%;top:-.5em;margin-left:-.8em;width:1.6em;height:1.5em;background:#fff;
-  border:1.5px solid #1a1a1a;-webkit-border-radius:50%;border-radius:50%;z-index:2;}
-.av .eye{position:absolute;left:.35em;top:.64em;width:.14em;height:.15em;background:#1a1a1a;
-  -webkit-border-radius:50%;border-radius:50%;-webkit-box-shadow:/1;box-shadow:/1;}
-.av .mouth{position:absolute;left:.62em;top:.94em;width:.36em;height:.19em;
-  border-bottom:1.3px solid #1a1a1a;-webkit-border-radius:0 0 .2em .2em;border-radius:0 0 .2em .2em;}
-.av-bear:before,.av-bear:after{content:"";position:absolute;top:-.11em;width:.5em;height:.5em;
-  background:#1a1a1a;-webkit-border-radius:50%;border-radius:50%;}
-.av-bear:before{left:.01em;}
-.av-bear:after{right:.01em;}
-.av-cat:before,.av-cat:after{content:"";position:absolute;top:-.32em;width:0;height:0;
-  border-left:.26em solid transparent;border-right:.26em solid transparent;border-bottom:.52em solid #1a1a1a;}
-.av-cat:before{left:.12em;}
-.av-cat:after{right:.12em;}
-.av-rabbit:before,.av-rabbit:after{content:"";position:absolute;top:-.62em;width:.28em;height:.8em;
-  background:#1a1a1a;-webkit-border-radius:.14em;border-radius:.14em;}
-.av-rabbit:before{left:.28em;-webkit-transform:rotate(-9deg);transform:rotate(-9deg);}
-.av-rabbit:after{right:.28em;-webkit-transform:rotate(9deg);transform:rotate(9deg);}
-.av-puppy:before,.av-puppy:after{content:"";position:absolute;top:.12em;width:.36em;height:.62em;
-  background:#1a1a1a;-webkit-border-radius:.18em .18em .24em .24em;border-radius:.18em .18em .24em .24em;}
-.av-puppy:before{left:-.14em;}
-.av-puppy:after{right:-.14em;}
-.av-chick:before{content:"";position:absolute;left:.6em;top:-.28em;width:0;height:0;
-  border-left:.16em solid transparent;border-right:.16em solid transparent;border-bottom:.32em solid #1a1a1a;}
-.av-chick:after{content:"";position:absolute;left:.64em;top:.88em;width:0;height:0;
-  border-left:.16em solid transparent;border-right:.16em solid transparent;border-top:.24em solid #1a1a1a;}
-.av-chick .mouth{display:none;}
-
-/* --- 小猪存钱罐：坐在「家庭账本」卡片右下角，守着这个月的钱 --- */
-.pig{position:absolute;right:.62em;bottom:.16em;width:2.25em;height:1.4em;}
-.pig .tail{position:absolute;left:-.02em;bottom:.52em;width:.36em;height:.36em;
-  border:1.4px solid #1a1a1a;border-left-color:transparent;border-bottom-color:transparent;
-  -webkit-border-radius:0 .4em 0 0;border-radius:0 .4em 0 0;}
-.pig .leg{position:absolute;bottom:0;width:.26em;height:.34em;background:#fff;
-  border:1.3px solid #1a1a1a;border-top:0;}
-.pig .leg.a{left:.38em;}
-.pig .leg.b{left:1.08em;}
-.pig .body{position:absolute;left:.14em;bottom:.26em;width:1.66em;height:.94em;background:#fff;
-  border:1.4px solid #1a1a1a;-webkit-border-radius:50%;border-radius:50%;}
-.pig .ear{position:absolute;left:.5em;bottom:1.06em;width:0;height:0;
-  border-left:.17em solid transparent;border-right:.17em solid transparent;border-bottom:.32em solid #1a1a1a;}
-.pig .eye{position:absolute;left:.58em;bottom:.8em;width:.13em;height:.14em;background:#1a1a1a;
-  -webkit-border-radius:50%;border-radius:50%;}
-.pig .snout{position:absolute;left:1.46em;bottom:.5em;width:.54em;height:.38em;background:#fff;
-  border:1.3px solid #1a1a1a;-webkit-border-radius:.2em;border-radius:.2em;}
-.pig .snout:before{content:"";position:absolute;left:.13em;top:.1em;width:.09em;height:.11em;background:#1a1a1a;
-  -webkit-border-radius:50%;border-radius:50%;-webkit-box-shadow:/1;box-shadow:/1;}
-.pig .slot{position:absolute;left:.62em;bottom:1.15em;width:.46em;height:0;border-top:1.4px solid #1a1a1a;}
 
 @media (max-width:480px){
   body{font-size:14px;}
@@ -228,7 +201,8 @@ table{border-collapse:collapse;width:100%;}
 <!-- 报头 -->
 <div class="head">
   <div class="date"><i>★</i><span id="dateline">2026年10月26日 · 星期一</span><i>★</i></div>
-  <div class="greet"><span class="cloud"></span><span id="greet">晚上好，家人</span><small>HANGZHOU</small><span class="cloud"></span></div>
+  <div class="greet"><span id="greet">晚上好，家人</span><small>HANGZHOU</small></div>
+  <span class="car t-van headcar"><i class="bd"></i><i class="rf"></i><i class="w w1"></i><i class="w w2"></i></span>
 </div>
 
 <!-- 今日天气 -->
@@ -236,12 +210,11 @@ table{border-collapse:collapse;width:100%;}
 <table class="now">
   <tr>
     <td class="now-temp">
-      <span class="wicon w-sun" id="wicon"><i></i></span>
-      <div class="bigtemp" id="cur-temp">18°</div>
+      <span class="wtemp"><span class="wicon w-sun" id="wicon"><i></i><b></b></span><span class="bigtemp" id="cur-temp">18°</span></span>
       <div class="city">杭州</div>
     </td>
     <td class="now-meta">
-      <div><b id="cur-desc">晴</b> · 体感 <span id="cur-feel">20°C</span> · 湿度 <span id="cur-hum">82%</span> · <span id="cur-wind">北风 1 级</span></div>
+      <div><b id="cur-desc">晴</b> · 体感 <span id="cur-feel">19°C</span> · 湿度 <span id="cur-hum">85%</span> · <span id="cur-wind">北风 1 级</span></div>
       <div><span class="dim">今日</span> <span id="cur-range">15°C ~ 24°C</span> <span class="dim">· 日出日落</span> <span id="cur-sun">06:08 / 17:17</span></div>
     </td>
   </tr>
@@ -252,9 +225,9 @@ table{border-collapse:collapse;width:100%;}
 <table class="grid">
   <tbody id="week-body">
     <tr class="tomorrow"><td>明天</td><td>周二</td><td>阴</td><td>22° / 14°</td><td class="c-bar"><span class="tbar"><span class="tfill" style="left:15%;width:44%;"></span></span></td></tr>
-    <tr><td>10/28</td><td>周三</td><td>多云</td><td>21° / 12°</td><td class="c-bar"><span class="tbar"><span class="tfill" style="left:0%;width:54%;"></span></span></td></tr>
-    <tr><td>10/29</td><td>周四</td><td>小雨</td><td>24° / 13°</td><td class="c-bar"><span class="tbar"><span class="tfill" style="left:10%;width:66%;"></span></span></td></tr>
-    <tr><td>10/30</td><td>周五</td><td>多云</td><td>24° / 14°</td><td class="c-bar"><span class="tbar"><span class="tfill" style="left:15%;width:58%;"></span></span></td></tr>
+    <tr><td>10/28</td><td>周三</td><td>晴</td><td>21° / 12°</td><td class="c-bar"><span class="tbar"><span class="tfill" style="left:0%;width:54%;"></span></span></td></tr>
+    <tr><td>10/29</td><td>周四</td><td>阴</td><td>24° / 13°</td><td class="c-bar"><span class="tbar"><span class="tfill" style="left:10%;width:66%;"></span></span></td></tr>
+    <tr><td>10/30</td><td>周五</td><td>小雨</td><td>24° / 14°</td><td class="c-bar"><span class="tbar"><span class="tfill" style="left:15%;width:58%;"></span></span></td></tr>
     <tr><td>10/31</td><td>周六</td><td>雾</td><td>25° / 13°</td><td class="c-bar"><span class="tbar"><span class="tfill" style="left:8%;width:71%;"></span></span></td></tr>
     <tr><td>11/1</td><td>周日</td><td>小雨</td><td>28° / 15°</td><td class="c-bar"><span class="tbar"><span class="tfill" style="left:20%;width:80%;"></span></span></td></tr>
   </tbody>
@@ -264,7 +237,7 @@ table{border-collapse:collapse;width:100%;}
 <div class="duo">
   <div class="duo-l">
     <div class="duo-card">
-      <div class="duo-head">下 一 个 假 日<span class="car"><b></b><u></u><i class="w1"></i><i class="w2"></i></span></div>
+      <div class="duo-head">下 一 个 假 日<span class="car t-sedan holcar"><i class="bd"></i><i class="rf"></i><i class="w w1"></i><i class="w w2"></i></span></div>
       <div class="duo-body" id="holiday-box">
         <div class="holi-name">元 旦</div>
   <div class="holi-num">67<em>天</em></div>
@@ -275,8 +248,8 @@ table{border-collapse:collapse;width:100%;}
   </div>
   <div class="duo-r">
     <div class="duo-card">
-      <div class="duo-head"><span class="face"></span>笑 一 笑 · 十 年 少</div>
-      <span class="cat"><span class="ear l"></span><span class="ear r"></span><span class="head"></span><span class="wh"></span><span class="eye"></span><span class="nose"></span><span class="paw l"></span><span class="paw r"></span></span>
+      <div class="duo-head"><span class="car t-bus headmini"><i class="bd"></i><i class="rf"></i><i class="xt"></i><i class="w w1"></i><i class="w w2"></i></span>笑 一 笑 · 十 年 少</div>
+      <span class="car t-racer jokecar"><i class="bd"></i><i class="rf"></i><i class="w w1"></i><i class="w w2"></i></span>
       <div class="joke-body">
         <div class="joke-mid">
           <div class="joke-text" id="joke-text">我发誓要早睡，于是熬夜查了三个小时的「熬夜的危害」。</div>
@@ -288,19 +261,19 @@ table{border-collapse:collapse;width:100%;}
 </div>
 
 <!-- 家人生日 -->
-<div class="sec"><span>家 人 生 日 ♥</span></div>
+<div class="sec"><span>家 人 生 日</span></div>
 <div class="brow5" id="birthday-cards">
-  <div class="bcard5"><div class="binner"><span class="av av-bear"><span class="eye"></span><span class="mouth"></span></span><b>爸爸</b><em>每年11月2日</em><span class="b-dy">7<em>天</em></span></div></div>
-  <div class="bcard5"><div class="binner"><span class="av av-rabbit"><span class="eye"></span><span class="mouth"></span></span><b>妈妈</b><em>每年12月28日</em><span class="b-dy">63<em>天</em></span></div></div>
-  <div class="bcard5"><div class="binner"><span class="av av-cat"><span class="eye"></span><span class="mouth"></span></span><b>爷爷</b><em>每年农历二月初三</em><span class="b-dy">135<em>天</em></span></div></div>
-  <div class="bcard5"><div class="binner"><span class="av av-puppy"><span class="eye"></span><span class="mouth"></span></span><b>兜兜</b><em>每年8月23日</em><span class="b-dy">301<em>天</em></span></div></div>
-  <div class="bcard5"><div class="binner"><span class="av av-chick"><span class="eye"></span><span class="mouth"></span></span><b>奶奶</b><em>每年农历八月初一</em><span class="b-dy">310<em>天</em></span></div></div>
+  <div class="bcard5"><div class="binner"><span class="car t-sedan bcar5"><i class="bd"></i><i class="rf"></i><i class="xt"></i><i class="w w1"></i><i class="w w2"></i></span><b>爸爸</b><em>每年11月2日</em><span class="b-dy">7<em>天</em></span></div></div>
+  <div class="bcard5"><div class="binner"><span class="car t-van bcar5"><i class="bd"></i><i class="rf"></i><i class="xt"></i><i class="w w1"></i><i class="w w2"></i></span><b>妈妈</b><em>每年12月28日</em><span class="b-dy">63<em>天</em></span></div></div>
+  <div class="bcard5"><div class="binner"><span class="car t-racer bcar5"><i class="bd"></i><i class="rf"></i><i class="xt"></i><i class="w w1"></i><i class="w w2"></i></span><b>兜兜</b><em>每年8月23日</em><span class="b-dy">301<em>天</em></span></div></div>
+  <div class="bcard5"><div class="binner"><span class="car t-truck bcar5"><i class="bd"></i><i class="rf"></i><i class="xt"></i><i class="w w1"></i><i class="w w2"></i></span><b>爷爷</b><em>每年农历二月初三</em><span class="b-dy">135<em>天</em></span></div></div>
+  <div class="bcard5"><div class="binner"><span class="car t-bus bcar5"><i class="bd"></i><i class="rf"></i><i class="xt"></i><i class="w w1"></i><i class="w w2"></i></span><b>奶奶</b><em>每年农历八月初一</em><span class="b-dy">310<em>天</em></span></div></div>
 </div>
 
 <!-- 家庭账本 -->
 <div class="sec"><span>家 庭 账 本</span></div>
 <div class="ledger">
-  <span class="pig"><span class="tail"></span><span class="leg a"></span><span class="leg b"></span><span class="body"></span><span class="ear"></span><span class="eye"></span><span class="slot"></span><span class="snout"></span></span>
+  <span class="car t-truck ledcar"><i class="bd"></i><i class="rf"></i><i class="xt"></i><i class="w w1"></i><i class="w w2"></i></span>
   <div class="lcell"><span class="ltag">本月收入</span><span class="lval" id="lg-income"><em>待接入</em></span></div>
   <div class="lcell"><span class="ltag">本月支出</span><span class="lval" id="lg-expense"><em>待接入</em></span></div>
   <div class="lcell"><span class="ltag">本月结余</span><span class="lval" id="lg-balance"><em>待接入</em></span></div>
@@ -308,7 +281,7 @@ table{border-collapse:collapse;width:100%;}
 
 <!-- 页脚 -->
 <div class="foot">
-  <span class="home"><i>★</i>我 们 的 家 ♥<i>★</i></span><span class="upd" id="update-time">更新于 20:00</span><button class="btn" onclick="nextJoke()">换一则</button><button class="btn" onclick="refresh()">刷新天气</button>
+  <span class="home"><i>★</i>我 们 的 家 ♥<i>★</i></span><span class="upd" id="update-time">更新于 20:15</span><button class="btn" onclick="nextJoke()">换一则</button><button class="btn" onclick="refresh()">刷新天气</button>
 </div>
 
 </div>
@@ -336,8 +309,9 @@ var LUNAR = [
   {name:"爷爷", note:"农历二月初三", dates:["2026-03-21","2027-03-10","2028-02-27","2029-03-17","2030-03-06","2031-02-23","2032-03-14","2033-03-03","2034-03-22","2035-03-12","2036-02-29"]},
   {name:"奶奶", note:"农历八月初一", dates:["2026-09-11","2027-09-01","2028-09-19","2029-09-08","2030-08-29","2031-09-17","2032-09-05","2033-08-25","2034-09-13","2035-09-02","2036-09-20"]}
 ];
-/* 每位家人对应一只小动物（卡片顶部的头像） */
-var AVATAR = {"爸爸":"av-bear","妈妈":"av-rabbit","爷爷":"av-cat","兜兜":"av-puppy","奶奶":"av-chick"};
+/* 每位家人配一辆车（卡片顶上的那辆），以及固定的排列顺序 */
+var VCAR = {"爸爸":"t-sedan","妈妈":"t-van","兜兜":"t-racer","爷爷":"t-truck","奶奶":"t-bus"};
+var BIRTHDAY_ORDER = ["爸爸","妈妈","兜兜","爷爷","奶奶"];
 
 /* 公历生日 */
 var SOLAR_BIRTHDAYS = [
@@ -407,11 +381,10 @@ function r0(n){ return Math.round(n); }
 
 /* 天气图标：晴/少云=太阳，雨雪=雨，其余=云 */
 function wiconClass(code){
-  if (code === 0 || code === 1) return "w-sun";
-  if (code >= 51 && code <= 67) return "w-rain";
-  if (code >= 71 && code <= 86) return "w-rain";
-  if (code >= 95) return "w-rain";
-  return "w-cloud";
+  if (code === 0 || code === 1) return "w-sun";      /* 晴 / 少云 */
+  if (code === 2) return "w-partly";                 /* 多云 */
+  if (code >= 51) return "w-rain";                   /* 雨 / 雪 / 雷 */
+  return "w-cloud";                                   /* 阴 / 雾 */
 }
 
 function render(data){
@@ -517,24 +490,26 @@ function renderHoliday(){
 
 /* ---- 家人生日：一行五卡；公历一律「每年X月X日」，农历「每年农历X月初X」 ---- */
 function renderBirthdays(){
-  var list = [];
+  var info = {};
   for (var i = 0; i < SOLAR_BIRTHDAYS.length; i++){
-    var r = solarNext(SOLAR_BIRTHDAYS[i].m, SOLAR_BIRTHDAYS[i].d);
-    list.push({name: SOLAR_BIRTHDAYS[i].name,
-      label: "每年" + SOLAR_BIRTHDAYS[i].m + "月" + SOLAR_BIRTHDAYS[i].d + "日", days: r.days});
+    var b = SOLAR_BIRTHDAYS[i], r = solarNext(b.m, b.d);
+    info[b.name] = {label: "每年" + b.m + "月" + b.d + "日", days: r.days};
   }
   for (var j = 0; j < LUNAR.length; j++){
     var lr = listNext(LUNAR[j].dates);
-    if (lr) list.push({name: LUNAR[j].name, label: "每年" + LUNAR[j].note, days: lr.days});
+    if (lr) info[LUNAR[j].name] = {label: "每年" + LUNAR[j].note, days: lr.days};
   }
-  list.sort(function(a, b){ return a.days - b.days; });
   var html = "";
-  for (var k = 0; k < list.length; k++){
+  for (var k = 0; k < BIRTHDAY_ORDER.length; k++){
+    var nm = BIRTHDAY_ORDER[k], it = info[nm];
+    if (!it) continue;
     html += '<div class="bcard5"><div class="binner">'
-      + '<span class="av ' + (AVATAR[list[k].name] || "av-bear") + '"><span class="eye"></span><span class="mouth"></span></span>'
-      + '<b>' + list[k].name + '</b>'
-      + '<em>' + list[k].label + '</em>'
-      + '<span class="b-dy">' + list[k].days + '<em>天</em></span></div></div>';
+      + '<span class="car ' + (VCAR[nm] || "t-sedan") + ' bcar5">'
+      + '<i class="bd"></i><i class="rf"></i><i class="xt"></i>'
+      + '<i class="w w1"></i><i class="w w2"></i></span>'
+      + '<b>' + nm + '</b>'
+      + '<em>' + it.label + '</em>'
+      + '<span class="b-dy">' + it.days + '<em>天</em></span></div></div>';
   }
   $("birthday-cards").innerHTML = html;
 }
