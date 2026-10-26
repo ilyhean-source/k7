@@ -13,17 +13,17 @@ body{
   font-size:15px;line-height:1.45;
   -webkit-text-size-adjust:none;text-size-adjust:none;
 }
-.wrap{max-width:36em;margin:0 auto;padding:.32em .95em .3em;}
+.wrap{max-width:36em;margin:0 auto;padding:.35em .95em .34em;}
 
 /* ============ 报头：信笺式 ============ */
-.head{text-align:center;padding-bottom:.3em;border-bottom:3px double #1a1a1a;}
-.head .date{font-size:.92em;letter-spacing:.12em;}
-.head .greet{font-size:1.1em;font-weight:bold;letter-spacing:.2em;text-indent:.2em;margin-top:.08em;}
+.head{text-align:center;padding-bottom:.32em;border-bottom:3px double #1a1a1a;}
+.head .date{font-size:.95em;letter-spacing:.12em;}
+.head .greet{font-size:1.16em;font-weight:bold;letter-spacing:.2em;text-indent:.2em;margin-top:.08em;}
 .head .greet small{font-size:.52em;font-weight:normal;letter-spacing:.18em;color:#666;margin-left:.9em;}
 
 /* ============ 章节头：细线 + 小字 ============ */
-.sec{margin:.3em 0 .16em;text-align:center;position:relative;}
-.sec span{display:inline-block;font-size:.72em;font-weight:bold;letter-spacing:.4em;text-indent:.4em;
+.sec{margin:.36em 0 .2em;text-align:center;position:relative;}
+.sec span{display:inline-block;font-size:.74em;font-weight:bold;letter-spacing:.4em;text-indent:.4em;
   background:#fff;padding:0 .9em;position:relative;z-index:1;}
 .sec:before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px solid #1a1a1a;z-index:0;}
 
@@ -31,62 +31,63 @@ body{
 table{border-collapse:collapse;width:100%;}
 .now td{vertical-align:middle;padding:0 .55em;}
 .now-temp{width:30%;text-align:center;border-right:1px solid #bbb;
-  font-size:2.05em;font-weight:normal;line-height:1.0;font-family:Georgia,"Times New Roman",serif;}
-.now-temp em{display:block;font-style:normal;font-size:.3em;letter-spacing:.3em;text-indent:.3em;color:#666;margin-top:.1em;}
-.now-meta{font-size:.82em;line-height:1.48;color:#333;}
+  font-size:2.25em;font-weight:normal;line-height:1.0;font-family:Georgia,"Times New Roman",serif;}
+.now-temp em{display:block;font-style:normal;font-size:.29em;letter-spacing:.3em;text-indent:.3em;color:#666;margin-top:.12em;}
+.now-meta{font-size:.86em;line-height:1.62;color:#333;}
 .now-meta b{font-weight:bold;color:#1a1a1a;}
 .now-meta .dim{color:#888;}
 
-/* 七日：无线表格，行分隔线 */
-.grid td{border-bottom:1px solid #ddd;padding:.04em .3em;font-size:.78em;text-align:center;line-height:1.2;color:#333;}
-.grid tr.today-row td{font-weight:bold;color:#1a1a1a;border-bottom:1px solid #999;}
+/* 六日：无线表格，行分隔线（今日已在上方独立展示，此处从明天起） */
+.grid td{border-bottom:1px solid #ddd;padding:.1em .3em;font-size:.8em;text-align:center;line-height:1.24;color:#333;}
+.grid tr.tomorrow td{font-weight:bold;color:#1a1a1a;border-bottom:1px solid #999;}
 .grid .c-date{width:4.2em;}
 .grid .c-bar{width:30%;}
 .tbar{display:inline-block;position:relative;width:92%;height:.4em;border:1px solid #999;vertical-align:middle;}
 .tfill{position:absolute;top:0;bottom:0;background:#666;}
 
-/* ============ 下一个假日：单卡 + 预览行 ============ */
+/* ============ 假日 + 笑话 并排 ============ */
+.duo{overflow:hidden;margin:0 -.32em;}
+.duo-l{float:left;width:50%;padding:0 .32em;}
+.duo-r{float:left;width:50%;padding:0 .32em;}
+.duo-label{text-align:center;font-size:.7em;font-weight:bold;letter-spacing:.28em;text-indent:.28em;
+  padding-bottom:.14em;margin-bottom:.2em;border-bottom:1px solid #1a1a1a;}
+
 .holi-box{border:1px solid #1a1a1a;border-top:4px solid #1a1a1a;-webkit-border-radius:8px;border-radius:8px;
-  text-align:center;padding:.16em .4em .2em;}
-.holi-name{font-size:.9em;font-weight:bold;letter-spacing:.36em;text-indent:.36em;}
-.holi-num{font-size:1.68em;font-weight:normal;line-height:1.16;font-family:Georgia,"Times New Roman",serif;}
-.holi-num em{font-style:normal;font-size:.5em;color:#666;margin-left:.08em;}
-.holi-date{font-size:.7em;letter-spacing:.06em;color:#777;margin-top:.02em;}
-.holi-next{font-size:.68em;color:#999;margin-top:.1em;letter-spacing:.05em;}
+  text-align:center;padding:.18em .3em .22em;}
+.holi-num{font-size:1.75em;font-weight:normal;line-height:1.14;font-family:Georgia,"Times New Roman",serif;}
+.holi-num em{font-style:normal;font-size:.48em;color:#666;margin-left:.08em;}
+.holi-name{font-size:.86em;font-weight:bold;letter-spacing:.24em;text-indent:.24em;}
+.holi-date{font-size:.68em;letter-spacing:.04em;color:#777;margin-top:.04em;}
+.holi-next{font-size:.66em;color:#999;margin-top:.12em;letter-spacing:.03em;}
 .holi-next b{color:#666;font-weight:normal;}
 
-/* ============ 家人生日：卡片 ============ */
-.bcards{overflow:hidden;margin:0 -.28em;}
-.bcard{float:left;width:50%;padding:0 .28em;margin-bottom:.24em;}
-.bcard .binner{border:1px solid #1a1a1a;-webkit-border-radius:8px;border-radius:8px;
-  padding:.1em .5em .12em;overflow:hidden;}
-.bcard.last{float:none;clear:both;width:50%;margin:0 auto;padding:0 .28em;}
-.seal{display:inline-block;width:1.4em;height:1.4em;line-height:1.34em;text-align:center;
-  border:1px solid #1a1a1a;-webkit-border-radius:50%;border-radius:50%;
-  font-size:.78em;font-weight:bold;float:left;margin-top:.1em;background:#fff;}
-.bmeta{float:left;margin-left:.5em;line-height:1.26;}
-.bmeta b{display:block;font-size:.88em;font-weight:bold;letter-spacing:.05em;}
-.bmeta em{display:block;font-style:normal;font-size:.72em;color:#888;}
-.b-dy{float:right;font-family:Georgia,"Times New Roman",serif;font-weight:bold;font-size:1.02em;line-height:1.42;}
-.b-dy em{font-style:normal;font-size:.58em;color:#666;font-weight:normal;margin-left:.03em;}
+.joke-box{border:1px solid #1a1a1a;-webkit-border-radius:8px;border-radius:8px;
+  padding:.24em .42em .2em;text-align:center;}
+.joke-text{font-size:.82em;line-height:1.5;min-height:4.2em;}
+.joke-foot{font-size:.64em;color:#999;margin-top:.16em;letter-spacing:.06em;}
+
+/* ============ 家人生日：一行五卡，无图标 ============ */
+.brow5{overflow:hidden;margin:0 -.22em;}
+.bcard5{float:left;width:20%;padding:0 .22em;}
+.bcard5 .binner{border:1px solid #1a1a1a;-webkit-border-radius:7px;border-radius:7px;
+  padding:.2em .1em .22em;text-align:center;}
+.bcard5 b{display:block;font-size:.82em;font-weight:bold;letter-spacing:.1em;line-height:1.3;}
+.bcard5 em{display:block;font-style:normal;font-size:.62em;color:#888;line-height:1.32;margin-top:.06em;}
+.bcard5 .b-dy{display:block;font-family:Georgia,"Times New Roman",serif;font-weight:bold;font-size:.95em;
+  line-height:1.3;margin-top:.1em;}
+.bcard5 .b-dy em{display:inline;font-style:normal;font-size:.62em;color:#666;margin-left:.04em;}
 
 /* ============ 家庭账本：三格占位 ============ */
 .ledger{border:1px solid #1a1a1a;-webkit-border-radius:8px;border-radius:8px;
-  padding:.14em 0;overflow:hidden;}
-.lcell{float:left;width:33.33%;text-align:center;line-height:1.4;}
+  padding:.18em 0;overflow:hidden;}
+.lcell{float:left;width:33.33%;text-align:center;line-height:1.42;}
 .lcell + .lcell{border-left:1px dotted #bbb;}
 .ltag{display:block;font-size:.72em;color:#666;letter-spacing:.14em;text-indent:.14em;}
-.lval{display:block;font-size:1.02em;font-weight:bold;font-family:Georgia,"Times New Roman",serif;}
+.lval{display:block;font-size:1.04em;font-weight:bold;font-family:Georgia,"Times New Roman",serif;}
 .lval em{font-style:normal;font-size:.66em;font-weight:normal;color:#999;letter-spacing:.1em;}
 
-/* ============ 笑话 ============ */
-.joke{text-align:center;padding:.1em .8em .14em;position:relative;}
-.joke .qmark{position:absolute;top:-.12em;left:.05em;font-size:1.6em;color:#bbb;font-family:Georgia,serif;line-height:1;}
-.joke .saying{font-size:.88em;line-height:1.36;}
-.joke .source{font-size:.7em;color:#999;margin-top:.1em;letter-spacing:.08em;}
-
 /* ============ 页脚 ============ */
-.foot{margin-top:.26em;border-top:1px solid #1a1a1a;padding-top:.26em;text-align:center;font-size:.66em;color:#888;}
+.foot{margin-top:.34em;border-top:1px solid #1a1a1a;padding-top:.28em;text-align:center;font-size:.66em;color:#888;}
 .foot .home{letter-spacing:.3em;text-indent:.3em;color:#666;}
 .btn{display:inline-block;border:1px solid #bbb;-webkit-border-radius:8px;border-radius:8px;background:#fff;color:#666;
   font-family:inherit;font-size:.94em;letter-spacing:.06em;padding:.06em .55em;margin-left:.45em;cursor:pointer;}
@@ -119,12 +120,11 @@ table{border-collapse:collapse;width:100%;}
   </tr>
 </table>
 
-<!-- 近七日 -->
-<div class="sec"><span>近 七 日 天 气</span></div>
+<!-- 未来六日（今日已在上面单独展示） -->
+<div class="sec"><span>未 来 六 日</span></div>
 <table class="grid">
   <tbody id="week-body">
-    <tr class="today-row"><td>今天</td><td>周一</td><td>阴</td><td>24° / 15°</td><td><span class="tbar"><span class="tfill" style="left:20%;width:54%;"></span></span></td></tr>
-    <tr><td>10/27</td><td>周二</td><td>阴</td><td>22° / 14°</td><td><span class="tbar"><span class="tfill" style="left:15%;width:44%;"></span></span></td></tr>
+    <tr class="tomorrow"><td>明天</td><td>周二</td><td>阴</td><td>22° / 14°</td><td><span class="tbar"><span class="tfill" style="left:15%;width:44%;"></span></span></td></tr>
     <tr><td>10/28</td><td>周三</td><td>多云</td><td>21° / 12°</td><td><span class="tbar"><span class="tfill" style="left:0%;width:54%;"></span></span></td></tr>
     <tr><td>10/29</td><td>周四</td><td>小雨</td><td>24° / 13°</td><td><span class="tbar"><span class="tfill" style="left:10%;width:66%;"></span></span></td></tr>
     <tr><td>10/30</td><td>周五</td><td>多云</td><td>24° / 14°</td><td><span class="tbar"><span class="tfill" style="left:15%;width:58%;"></span></span></td></tr>
@@ -133,39 +133,43 @@ table{border-collapse:collapse;width:100%;}
   </tbody>
 </table>
 
-<!-- 下一个法定假日 -->
-<div class="sec"><span>下 一 个 假 日</span></div>
-<div class="holi-box" id="holiday-box">
-  <div class="holi-name">元 旦</div>
+<!-- 假日 + 笑话 并排 -->
+<div class="sec"><span>今 日 一 乐</span></div>
+<div class="duo">
+  <div class="duo-l">
+    <div class="duo-label">下 一 个 假 日</div>
+    <div class="holi-box" id="holiday-box">
+      <div class="holi-name">元 旦</div>
   <div class="holi-num">67<em>天</em></div>
   <div class="holi-date">2027年1月1日 · 放假 1 天</div>
   <div class="holi-next">再往后 · <b>春节 103 天</b></div>
+    </div>
+  </div>
+  <div class="duo-r">
+    <div class="duo-label">笑 一 笑 · 十 年 少</div>
+    <div class="joke-box">
+      <div class="joke-text" id="joke-text">我发誓要早睡，于是熬夜查了三个小时的「熬夜的危害」。</div>
+      <div class="joke-foot" id="joke-no">今日第 1 则</div>
+    </div>
+  </div>
 </div>
 
 <!-- 家人生日 -->
 <div class="sec"><span>家 人 生 日 ♥</span></div>
-<div class="bcards" id="birthday-cards">
-  <div class="bcard"><div class="binner"><span class="seal">爸</span><span class="bmeta"><b>爸爸</b><em>每年11月2日</em></span><span class="b-dy">7<em>天</em></span></div></div>
-  <div class="bcard"><div class="binner"><span class="seal">妈</span><span class="bmeta"><b>妈妈</b><em>每年12月28日</em></span><span class="b-dy">63<em>天</em></span></div></div>
-  <div class="bcard"><div class="binner"><span class="seal">爷</span><span class="bmeta"><b>爷爷</b><em>2027年3月10日 · 农历二月初三</em></span><span class="b-dy">135<em>天</em></span></div></div>
-  <div class="bcard"><div class="binner"><span class="seal">兜</span><span class="bmeta"><b>兜兜</b><em>2027年8月23日</em></span><span class="b-dy">301<em>天</em></span></div></div>
-  <div class="bcard last"><div class="binner"><span class="seal">奶</span><span class="bmeta"><b>奶奶</b><em>2027年9月1日 · 农历八月初一</em></span><span class="b-dy">310<em>天</em></span></div></div>
+<div class="brow5" id="birthday-cards">
+  <div class="bcard5"><div class="binner"><b>爸爸</b><em>每年11月2日</em><span class="b-dy">7<em>天</em></span></div></div>
+  <div class="bcard5"><div class="binner"><b>妈妈</b><em>每年12月28日</em><span class="b-dy">63<em>天</em></span></div></div>
+  <div class="bcard5"><div class="binner"><b>爷爷</b><em>每年农历二月初三</em><span class="b-dy">135<em>天</em></span></div></div>
+  <div class="bcard5"><div class="binner"><b>兜兜</b><em>2027年8月23日</em><span class="b-dy">301<em>天</em></span></div></div>
+  <div class="bcard5"><div class="binner"><b>奶奶</b><em>每年农历八月初一</em><span class="b-dy">310<em>天</em></span></div></div>
 </div>
 
 <!-- 家庭账本 -->
-<div class="sec"><span>本 月 账 本</span></div>
+<div class="sec"><span>家 庭 账 本</span></div>
 <div class="ledger">
   <div class="lcell"><span class="ltag">本月收入</span><span class="lval" id="lg-income"><em>待接入</em></span></div>
   <div class="lcell"><span class="ltag">本月支出</span><span class="lval" id="lg-expense"><em>待接入</em></span></div>
   <div class="lcell"><span class="ltag">本月结余</span><span class="lval" id="lg-balance"><em>待接入</em></span></div>
-</div>
-
-<!-- 笑一笑 -->
-<div class="sec"><span>笑 一 笑 · 十 年 少</span></div>
-<div class="joke">
-  <span class="qmark">“</span>
-  <div class="saying" id="joke-text">孙子问爷爷：为什么您的白头发比奶奶少？爷爷说：奶奶爱操心，操的心都长成了白发；我什么都不操心，长出来的全是智慧。</div>
-  <div class="source" id="joke-no">今日笑料 · 第 1 则</div>
 </div>
 
 <!-- 页脚 -->
@@ -197,14 +201,14 @@ var MIDAUT = ["2026-09-25","2027-09-15","2028-10-03","2029-09-22","2030-09-12","
 
 /* 农历生日换算表（2026-2036，lunardate 库生成） */
 var LUNAR = [
-  {seal:"爷", name:"爷爷", note:"农历二月初三", dates:["2026-03-21","2027-03-10","2028-02-27","2029-03-17","2030-03-06","2031-02-23","2032-03-14","2033-03-03","2034-03-22","2035-03-12","2036-02-29"]},
-  {seal:"奶", name:"奶奶", note:"农历八月初一", dates:["2026-09-11","2027-09-01","2028-09-19","2029-09-08","2030-08-29","2031-09-17","2032-09-05","2033-08-25","2034-09-13","2035-09-02","2036-09-20"]}
+  {name:"爷爷", note:"农历二月初三", dates:["2026-03-21","2027-03-10","2028-02-27","2029-03-17","2030-03-06","2031-02-23","2032-03-14","2033-03-03","2034-03-22","2035-03-12","2036-02-29"]},
+  {name:"奶奶", note:"农历八月初一", dates:["2026-09-11","2027-09-01","2028-09-19","2029-09-08","2030-08-29","2031-09-17","2032-09-05","2033-08-25","2034-09-13","2035-09-02","2036-09-20"]}
 ];
-/* 公历生日：印章字 + 显示名 */
+/* 公历生日 */
 var SOLAR_BIRTHDAYS = [
-  {seal:"爸", name:"爸爸", m:11, d:2},
-  {seal:"妈", name:"妈妈", m:12, d:28},
-  {seal:"兜", name:"兜兜", m:8, d:23}
+  {name:"爸爸", m:11, d:2},
+  {name:"妈妈", m:12, d:28},
+  {name:"兜兜", m:8, d:23}
 ];
 
 /* 家庭账本（占位：数据源后期接入） */
@@ -216,38 +220,38 @@ function renderLedger(){
   $("lg-balance").innerHTML = fmt(LEDGER.balance);
 }
 
-/* 笑话库（家庭温和向，每天一则） */
+/* 笑话库（生活脑洞向，每天一则；保持短小，适合同屏右侧栏） */
 var JOKES = [
-  "孙子问爷爷：为什么您的白头发比奶奶少？爷爷说：奶奶爱操心，操的心都长成了白发；我什么都不操心，长出来的全是智慧。",
-  "女儿问爸爸：我长大能当科学家吗？爸爸说：能，只要你放假的时候别再把作业本藏进冰箱。",
-  "奶奶问爷爷：药吃了吗？爷爷说吃了。奶奶问：什么颜色的？爷爷说：没看清，就着您的唠叨一起咽下去的，特别顺。",
-  "老公说：老婆，你胖了我也爱你。老婆问：那我瘦了呢？老公说：那更爱——等于花一份钱，爱两个人。",
-  "孩子问妈妈：为什么弟弟一哭您就抱他？妈妈说：因为他在练习怎么当老板。",
-  "爸爸陪孩子写作业，孩子问：1+1 为什么等于 2？爸爸说：等你当了爸爸，辅导作业的时候，你就希望它等于几都行。",
-  "妈妈让宝贝拿拖鞋，宝贝说：自己的事情要自己做。妈妈笑了笑：那今天的冰淇淋……宝贝转身喊：拖鞋！给您！",
-  "奶奶看天气预报说明天有雨，转身把全家的伞都翻了出来。爷爷问：这是要开伞铺？奶奶说：这叫有备无患。",
-  "孙子问：爷爷，您年轻时最勇敢的事是什么？爷爷想了想：有一天你奶奶生气了，我没跑。",
-  "爸爸：这次考试为什么又粗心？儿子：爸，粗心不是病，犯起来要人命——您上次把盐当成糖，全家的粥都还记得。",
-  "老公：如果我老了丑了，你还爱我吗？老婆：当然，那时候我眼睛也花了，正好配对。",
-  "爷爷讲他小时候没电视没手机，孙子惊呼：那你们怎么活？爷爷说：满村跑，摔得浑身泥，回家照样吃饭香。",
-  "妈妈：别挑食。孩子：我没挑食，我只是把不爱吃的夹给您。爸爸看了看碗：那我碗里这座山是怎么回事？",
-  "奶奶过生日，爷爷送了束花。奶奶说：都一辈子了还送花？爷爷说：年轻时候欠你的，利息涨了一辈子，今天先还一点。",
-  "孩子问：妈妈，我是从哪里来的？妈妈答：从肚子里。孩子问：那为什么我现在进不去？爸爸在旁边说：因为房东换了锁。",
-  "孙子学爷爷戴老花镜，戴上后看什么都不清，说：这眼镜真神奇，一戴上世界就变温柔了。爷爷说：不是世界温柔，是世界被你马赛克了。",
-  "老婆让老公减肥，老公说：我这不是胖，是对生活的过敏反应。老婆说：那我对你的过敏反应，就是让你去跑步。",
-  "爷爷：想当年我追你奶奶，一封信写了三天。孙子问：现在呢？爷爷说：现在发微信三秒钟，她还嫌我回得慢。",
-  "孩子：爸爸，鲸鱼有多大？爸爸：很大。孩子：有多大？爸爸：大到它一张嘴，你一周的零花钱就没了。",
-  "奶奶跳广场舞回来，爷爷问：跳得怎么样？奶奶说：领舞换了三次，我一次没跟上，但气势上一直领先。",
-  "孙子问：爷爷，你为什么总是坐着睡觉？爷爷说：因为躺着睡，你奶奶就找不到人干活了。",
-  "爸爸检查作业：这道题错了，改了！儿子说：您不是说失败是成功之母？爸爸说：那也不能认个后妈就赖着不走啊。",
-  "爷爷问孙子：钱重要还是开心重要？孙子说：开心！爷爷说：错，等你长大了就知道两个都重要——所以现在先教你把这块橡皮省着用。",
-  "孩子：妈妈，我想养只狗。妈妈：你先把自己养活再说。孩子：可是狗不用写作业。妈妈顿了顿：……明天再说。",
-  "奶奶问：老头子，咱俩谁更能省？爷爷说：当然是你。奶奶问：举例说明。爷爷说：你连生气都挑双日子，省着气。",
-  "孙子问奶奶：奶奶，爱情是什么？奶奶说：爱情就是你爷爷明明忘了买酱油，还顺路给我带了串糖葫芦。",
-  "爸爸问：儿子，知道今天什么日子吗？儿子：发零花钱的日子？爸爸：错，是你妈生日。儿子赶紧说：那现在改成双喜临门，还来得及吗？",
-  "孩子：妈妈，为什么您和爸爸的合照里，您总是闭着眼？妈妈：这样我就看不见你爸爸藏私房钱了。",
-  "爷爷教孙子打算盘：会算账的人，买菜不吃亏。孙子问：那您昨天买菜为什么还是被找了张假钞？爷爷沉默半天：……所以你要先学认字。",
-  "妈妈：女儿，女孩子要富养。女儿：那我的零花钱……妈妈说：精神上富养，物质上嘛，咱们一起看价格。"
+  "我发誓要早睡，于是熬夜查了三个小时的「熬夜的危害」。",
+  "减肥第一天只吃水果，第三天发现水果真好吃，于是买了十斤。",
+  "手机剩 1% 电量时我比它更紧张——它关机只是休息，我关机要挨骂。",
+  "有人问我为什么不谈恋爱，我说：怕耽误周末睡觉。",
+  "老板说公司是个大家庭，我信了——可家里没人发零花钱还要年终总结。",
+  "体检报告写「建议加强锻炼」，我把报告仔细折好放进兜里——这也算锻炼手指了。",
+  "猫从我键盘上走过，删了我三小时的代码，然后看了我一眼，像在说：帮你重构。",
+  "买了个「专治拖延」的计时器，说明书我三个月后才拆开看。",
+  "天气预报说明天有雨，我带伞，没下；第二天不带，下了。后来我想明白了：这是一种无声的默契。",
+  "面试官问我最大的缺点，我说太诚实。他让我举例，我说：您这个问题问得不好。",
+  "冰箱里最冷的地方不是冷冻层，是我放在里面那盒「明天一定吃」的青菜。",
+  "我一直以为自己是内向，直到发现我只是不想上班。",
+  "励志要减肥，第二天就明白了：「明天」这个词是可以无限延期的。",
+  "蚊子在我耳边嗡嗡，我打了自己一巴掌。它飞走了，我彻底清醒——原来它负责叫我起床。",
+  "老师问长大想做什么，我说想做个好人。老师让具体点，我说：做个不用写作业的好人。",
+  "我把「早睡早起」写在便签贴在床头，三个月后便签掉下来砸醒了我，那时是下午两点。",
+  "钱能买到快乐吗？不能，但能买到一张让我安静思考这个问题的沙发。",
+  "今天立志不再拖延，结果我把「立志」这件事也拖到了明天。",
+  "快递显示「已签收」，签收人写的是「门口」。我去问了问门口，门口说它没签。",
+  "朋友说他最近在做减法生活，扔了很多东西。我问扔了什么，他说：扔了「坚持」。",
+  "我发现一个规律：只要不看体重秤，体重就保持不变。",
+  "楼下大爷养了只会说话的鹦鹉，天天教它说「你好」。半年后鹦鹉学会了大爷所有口头禅，包括「这个价不行」。",
+  "我妈说我房间像猪窝。我说猪哪有这么多书。她想了想：也是，猪比你整齐。",
+  "同事说：再坚持一下就好了。我问坚持到什么时候，他说：坚持到你不再问这个问题。",
+  "我做的饭不太好吃，但我家狗从不嫌弃——它把我的碗舔得比它的还干净，以示鼓励。",
+  "健身教练问我的目标，我说想一口气爬楼梯不喘。他说那先从不坐电梯开始。我当场决定换教练。",
+  "我妈让我多吃鱼补脑。我说我挺聪明的。她说：那就多吃点，补补谦虚。",
+  "有人劝我多出去走走看看世界。我走到阳台看了看对面的楼，觉得世界挺大的。",
+  "WiFi 的信号强度，是我判断一个地方是否宜居的唯一标准。",
+  "天气预报说今天多云转晴，我出门带了伞和外套，最后被晒到怀疑人生。"
 ];
 
 var qIndex = 0;
@@ -277,17 +281,18 @@ function render(data){
   $("cur-sun").innerHTML = hhmm(d.sunrise[0]) + " / " + hhmm(d.sunset[0]);
   $("update-time").innerHTML = "更新于 " + hhmm(c.time);
 
+  /* 今日已在上方独立展示：这里从明天（索引 1）开始，共 6 天 */
   var gmin = Math.min.apply(null, d.temperature_2m_min);
   var gmax = Math.max.apply(null, d.temperature_2m_max);
   var span = (gmax - gmin) || 1;
   var html = "";
-  for (var i = 0; i < d.time.length; i++){
+  for (var i = 1; i < d.time.length; i++){
     var iso = d.time[i];
     var tmin = d.temperature_2m_min[i], tmax = d.temperature_2m_max[i];
     var left = Math.round((tmin - gmin) / span * 100);
     var width = Math.max(8, Math.round((tmax - tmin) / span * 100));
-    html += "<tr" + (i === 0 ? " class=\"today-row\"" : "") + ">"
-      + "<td>" + (i === 0 ? "今天" : fmtDate(iso)) + "</td>"
+    html += "<tr" + (i === 1 ? " class=\"tomorrow\"" : "") + ">"
+      + "<td>" + (i === 1 ? "明天" : fmtDate(iso)) + "</td>"
       + "<td>" + weekdayCN(iso) + "</td>"
       + "<td>" + wmo(d.weather_code[i]) + "</td>"
       + "<td>" + r0(tmax) + "° / " + r0(tmin) + "°</td>"
@@ -365,26 +370,23 @@ function renderHoliday(){
   $("holiday-box").innerHTML = html;
 }
 
-/* ---- 家人生日：卡片 ---- */
+/* ---- 家人生日：一行五卡，无图标；农历只显示公历落点天数 ---- */
 function renderBirthdays(){
   var list = [];
   for (var i = 0; i < SOLAR_BIRTHDAYS.length; i++){
     var r = solarNext(SOLAR_BIRTHDAYS[i].m, SOLAR_BIRTHDAYS[i].d);
-    list.push({seal: SOLAR_BIRTHDAYS[i].seal, name: SOLAR_BIRTHDAYS[i].name,
+    list.push({name: SOLAR_BIRTHDAYS[i].name,
       label: (r.label.indexOf("年") > -1 ? r.label : "每年" + r.label), days: r.days});
   }
   for (var j = 0; j < LUNAR.length; j++){
     var lr = listNext(LUNAR[j].dates);
-    if (lr) list.push({seal: LUNAR[j].seal, name: LUNAR[j].name,
-      label: lr.label + " · " + LUNAR[j].note, days: lr.days});
+    if (lr) list.push({name: LUNAR[j].name, label: "每年" + LUNAR[j].note, days: lr.days});
   }
   list.sort(function(a, b){ return a.days - b.days; });
   var html = "";
   for (var k = 0; k < list.length; k++){
-    var cls = (k === list.length - 1) ? "bcard last" : "bcard";
-    html += '<div class="' + cls + '"><div class="binner">'
-      + '<span class="seal">' + list[k].seal + '</span>'
-      + '<span class="bmeta"><b>' + list[k].name + '</b><em>' + list[k].label + '</em></span>'
+    html += '<div class="bcard5"><div class="binner"><b>' + list[k].name + '</b>'
+      + '<em>' + list[k].label + '</em>'
       + '<span class="b-dy">' + list[k].days + '<em>天</em></span></div></div>';
   }
   $("birthday-cards").innerHTML = html;
@@ -410,9 +412,8 @@ function dayIndex(){
   return Math.floor((now - t0) / 86400000);
 }
 function renderJoke(){
-  var j = JOKES[qIndex];
-  $("joke-text").innerHTML = j;
-  $("joke-no").innerHTML = "今日笑料 · 第 " + (qIndex + 1) + " 则";
+  $("joke-text").innerHTML = JOKES[qIndex];
+  $("joke-no").innerHTML = "今日第 " + (qIndex + 1) + " 则 · 共 " + JOKES.length + " 则";
 }
 function nextJoke(){
   qIndex = (qIndex + 1) % JOKES.length;
